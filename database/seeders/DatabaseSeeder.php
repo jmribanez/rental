@@ -78,6 +78,7 @@ class DatabaseSeeder extends Seeder
         $rTe = Role::create(['name' => 'Tenant']);
 
         // User permissions
+        Permission::create(['name' => 'list users'])->syncRoles([$rAd, $rLa, $rCa]);
         Permission::create(['name' => 'create user'])->syncRoles([$rAd]);
         Permission::create(['name' => 'edit user'])->syncRoles([$rAd]);
         Permission::create(['name' => 'view user'])->syncRoles([$rAd, $rLa, $rCa]);
@@ -85,6 +86,7 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'view self'])->syncRoles([$rAd, $rLa, $rCa, $rTe]);
 
         // Property permissions
+        Permission::create(['name' => 'list properties'])->syncRoles([$rAd, $rLa, $rCa]);
         Permission::create(['name' => 'create property'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'edit property'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'view property'])->syncRoles([$rAd, $rLa, $rCa]);
