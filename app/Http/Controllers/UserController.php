@@ -2,16 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        if(!Auth::user()->can('list users')) {
+            abort(403);
+        }
+        $pagefn = 'index';
+        $users = User::all();
+        return view('pages.users')
+            ->with('users',$users)
+            ->with('pagefn',$pagefn);
     }
 
     /**

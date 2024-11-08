@@ -67,6 +67,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @can('list users')
+                                    <a href="{{route('user.index')}}" class="dropdown-item">Users</a>
+                                    @endcan
+                                    <hr class="dropdown-divider">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -84,7 +88,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="container py-4">
             @yield('content')
         </main>
     </div>
