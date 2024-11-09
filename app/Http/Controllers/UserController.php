@@ -29,8 +29,8 @@ class UserController extends Controller
         $pagefn = 'index';
         $users = User::all();
         return view('pages.users')
-            ->with('users',$users)
-            ->with('pagefn',$pagefn);
+            ->with('users', $users)
+            ->with('pagefn', $pagefn);
     }
 
     /**
@@ -38,7 +38,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $pagefn = 'create';
+        $users = User::all();
+        return view('pages.users')
+            ->with('users', $users)
+            ->with('pagefn', $pagefn);
     }
 
     /**
@@ -54,7 +58,13 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pagefn = 'show';
+        $users = User::all();
+        $selectedUser = User::find($id);
+        return view('pages.users')
+            ->with('users', $users)
+            ->with('pagefn', $pagefn)
+            ->with('selectedUser', $selectedUser);
     }
 
     /**
@@ -62,7 +72,13 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pagefn = 'edit';
+        $users = User::all();
+        $selectedUser = User::find($id);
+        return view('pages.users')
+            ->with('users', $users)
+            ->with('pagefn', $pagefn)
+            ->with('selectedUser', $selectedUser);
     }
 
     /**

@@ -137,5 +137,30 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('abc.123'),
         ]);
         $user1->assignRole($rAd);
+
+        // Create dummy accounts
+        $user2 = User::factory()->create([
+            'name_last' => 'Nepomuceno',
+            'name_first'=> 'Juan',
+            'email' => 'landlord@mail.com',
+            'password' => Hash::make('abc.123'),
+        ]);
+        $user2->assignRole($rLa);
+
+        $user3 = User::factory()->create([
+            'name_last' => 'Lazatin',
+            'name_first'=> 'Carmelo',
+            'email' => 'cashier@mail.com',
+            'password' => Hash::make('abc.123'),
+        ]);
+        $user3->assignRole($rCa);
+
+        $user4 = User::factory()->create([
+            'name_last' => 'Garbo',
+            'name_first'=> 'Cris',
+            'email' => 'tenant1@mail.com',
+            'password' => Hash::make('abc.123'),
+        ]);
+        $user4->assignRole($rTe);
     }
 }
