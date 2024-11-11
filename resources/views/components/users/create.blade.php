@@ -17,8 +17,14 @@
                 <input type="email" id="txt_email" class="form-control" name="email" required>
             </div>
             <div class="col-md-6">
-                <label for="txt_contact_number" class="form-label">Contact number</label>
-                <input type="text" id="txt_contact_number" class="form-control" name="contact_number">
+                <label for="sel_role" class="form-label">Role<span class="text-danger">*</span></label>
+                <select name="role" id="sel_role" class="form-select">
+                    <option disabled selected>Choose a role</option>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Landlord">Landlord</option>
+                    <option value="Cashier">Cashier</option>
+                    <option value="Tenant">Tenant</option>
+                </select>
             </div>
         </div>
         <div class="row mb-2">
