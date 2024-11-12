@@ -35,7 +35,7 @@
                             <a href="{{url('/')}}" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('/')}}" class="nav-link">Properties</a>
+                            <a href="{{route('property.index')}}" class="nav-link">Properties</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/')}}" class="nav-link">Tenants</a>

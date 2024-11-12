@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Property;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,7 +26,7 @@ class DatabaseSeeder extends Seeder
          * - Administrator  -> can manage all models, probably best for person who manages server.
          * - Landlord       -> can manage properties, tenants, billing (invoice), transactions, and contracts.
          *                     can review system and audit trails.
-         * - Cashier        -> can perform collections and disbursements, issue invoice, view property data,
+         * - Staff (Cashier)-> can perform collections and disbursements, issue invoice, view property data,
          *                     view tenant data.
          * - Tenant         -> can view leased property information, view bills, settle bills, view contract.
          * 
@@ -34,8 +35,9 @@ class DatabaseSeeder extends Seeder
          *      - id, first_name, last_name, email, password, contact_number, address, photo, legal_id_photo, 
          *          role*, properties (belongsToMany to determine landlord).
          * [Property]
-         *      - id, name, address, landlords (user: belongsToMany), utilities (belongsToMany), 
-         *          contracts (hasMany)
+         *      - id, name, address_street, address_city, 
+         *          (optionals) 'photo_url', 'bedrooms','bathrooms','floor_area','land_size'
+         *          landlords (user: belongsToMany), utilities (belongsToMany), contracts (hasMany)
          * [PropertyUser]
          *      - property_id, user_id
          * [Utility]
@@ -74,7 +76,7 @@ class DatabaseSeeder extends Seeder
         // Role creation
         $rAd = Role::create(['name' => 'Administrator']);
         $rLa = Role::create(['name' => 'Landlord']);
-        $rCa = Role::create(['name' => 'Cashier']);
+        $rCa = Role::create(['name' => 'Staff']);   // NOTE: Cashier renamed to staff because there may be others
         $rTe = Role::create(['name' => 'Tenant']);
 
         // User permissions
@@ -150,7 +152,7 @@ class DatabaseSeeder extends Seeder
         $user3 = User::factory()->create([
             'name_last' => 'Lazatin',
             'name_first'=> 'Carmelo',
-            'email' => 'cashier@mail.com',
+            'email' => 'staff@mail.com',
             'password' => Hash::make('abc.123'),
         ]);
         $user3->assignRole($rCa);
@@ -162,5 +164,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('abc.123'),
         ]);
         $user4->assignRole($rTe);
+
+        // Create dummy properties
+        Property::factory()->count(5)->create();
     }
 }

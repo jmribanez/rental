@@ -1,6 +1,6 @@
 <div>
     <div class="d-flex align-items-center mb-2">
-        <img src="{{($selectedUser->photo_url != null)?asset('storage/user_photos/'.$selectedUser->photo_url):asset('storage/user_photos/usernophoto.jpg')}}" width="70" alt="user photo" class="img-thumbnail me-2">
+        <img src="{{($selectedUser->photo_url != null)?asset('storage/user_photos/'.$selectedUser->photo_url):asset('storage/user_photos/usernophoto.jpg')}}" alt="user photo" style="width: 70px; height: 70px; object-fit:cover" class="img-thumbnail me-2">
         <div>
             <h3 class="m-0">{{$selectedUser->name_first . " " . $selectedUser->name_last}}</h3>
             <p class="m-0">{{$selectedUser->getRoleNames()[0]}}</p>
