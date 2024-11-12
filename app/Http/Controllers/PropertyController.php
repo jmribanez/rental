@@ -46,9 +46,13 @@ class PropertyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Property $property)
+    public function show(string $id)
     {
-        //
+        // include auth can
+        $property = Property::find($id);
+        return view('pages.properties.show')
+            ->with('property', $property);
+
     }
 
     /**

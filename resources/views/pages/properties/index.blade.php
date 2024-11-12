@@ -11,7 +11,7 @@
                 <div class="card">
                     <img src="{{($property->photo_url != null)?asset('storage/property_photos/'.$property->photo_url):asset('storage/property_photos/propertynophoto.jpg')}}" style="height: 100px; object-fit:cover;" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">{{$property->name}}</h5>
+                        <h5 class="card-title"><a href="{{route('property.show',$property->id)}}" class="stretched-link text-decoration-none text-dark">{{$property->name}}</a></h5>
                         <p class="card-text mb-0">{{$property->address_street}}</p>
                         <p class="card-text">{{$property->address_city}}</p>
                     </div>
