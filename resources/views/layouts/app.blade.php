@@ -14,7 +14,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
 </head>
 <body>
     <div id="app">
@@ -70,6 +70,7 @@
                                     @can('list users')
                                     <a href="{{route('user.index')}}" class="dropdown-item">Users</a>
                                     @endcan
+                                    <a href="#" class="dropdown-item">Utilities</a>
                                     <hr class="dropdown-divider">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

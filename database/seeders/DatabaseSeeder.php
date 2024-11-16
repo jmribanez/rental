@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
          * [Utility]
          *      - id, name, address, contact_number, type
          * [Property-Utility]
-         *      - property_id, utility_id, subscription_number
+         *      - property_id, utility_id, account_number
          * [Contract]
          *      - id, date, policy, date_start, date_end, invoice_day, security_deposit, rental_amount, 
          *          agreed_payment_mode, scanned_contract, property (belongsTo), tenant (user: belongsTo)
