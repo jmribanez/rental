@@ -11,7 +11,7 @@ class Property extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name','address_street','address_city','photo_url','bedrooms','bathrooms','floor_area','land_size'];
+    protected $fillable = ['name','type','address_street','address_city','photo_url','bedrooms','bathrooms','floor_area','land_size'];
 
     // function landlords (BelongsToMany) via Property_User table
 

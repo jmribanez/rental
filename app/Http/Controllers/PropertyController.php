@@ -32,7 +32,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.properties.create');
     }
 
     /**
@@ -40,7 +40,32 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'address_street' => 'required',
+            'address_city' => 'required',
+        ]);
+        $property = new Property;
+        $property->name = $request->property_name;
+        $property->type = $request->property_type;
+        $property->address_street = $request->address_street;
+        $property->address_city = $request->address_city;
+        $property->bedrooms = $request->bedrooms;
+        $property->bathrooms = $request->bathrooms;
+        $property->floor_area = $request->floor_area;
+        $property->land_size = $request->land_size;
+        if($request->hasFile('property_photo')) {
+            $allowedFileExtension = ['jpg','jpeg','png'];
+            $file = $request->file('property_photo');
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension, $allowedFileExtension);
+            if($check) {
+                $newFileName = substr(bin2hex(random_bytes(ceil(6/2))),0,6);
+                $file->storeAs('property_photos', $newFileName . "." . $extension);
+                $property->property_photo = $newFileName . "." . $extension;
+            }
+        }
     }
 
     /**

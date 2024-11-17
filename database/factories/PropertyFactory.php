@@ -18,6 +18,7 @@ class PropertyFactory extends Factory
     {
         return [
             'name' => fake()->streetName(),
+            'type' => 'Apartment',
             'address_street' => fake()->streetAddress(),
             'address_city' => 'Angeles City',
         ];
