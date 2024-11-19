@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
@@ -41,8 +42,8 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'type' => 'required',
+            'property_name' => 'required',
+            'property_type' => 'required',
             'address_street' => 'required',
             'address_city' => 'required',
         ]);
@@ -66,6 +67,8 @@ class PropertyController extends Controller
                 $property->property_photo = $newFileName . "." . $extension;
             }
         }
+        $property->save();
+        return to_route('property.show',$property->id);
     }
 
     /**
@@ -83,17 +86,48 @@ class PropertyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Property $property)
+    public function edit(string $id)
     {
-        //
+        $property = Property::find($id);
+        return view('pages.properties.edit')
+            ->with('property', $property);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Property $property)
+    public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'property_name' => 'required',
+            'property_type' => 'required',
+            'address_street' => 'required',
+            'address_city' => 'required',
+        ]);
+        $property = Property::find($id);
+        $property->name = $request->property_name;
+        $property->type = $request->property_type;
+        $property->address_street = $request->address_street;
+        $property->address_city = $request->address_city;
+        $property->bedrooms = $request->bedrooms;
+        $property->bathrooms = $request->bathrooms;
+        $property->floor_area = $request->floor_area;
+        $property->land_size = $request->land_size;
+        if($request->hasFile('property_photo')) {
+            $allowedFileExtension = ['jpg','jpeg','png'];
+            $file = $request->file('property_photo');
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension, $allowedFileExtension);
+            if($check) {
+                // Remove old photo
+                Storage::delete('property_photos/'.$property->photo_url);
+                $newFileName = substr(bin2hex(random_bytes(ceil(6/2))),0,6);
+                $file->storeAs('property_photos', $newFileName . "." . $extension);
+                $property->property_photo = $newFileName . "." . $extension;
+            }
+        }
+        $property->update();
+        return to_route('property.show',$id);
     }
 
     /**

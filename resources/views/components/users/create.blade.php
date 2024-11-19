@@ -50,19 +50,19 @@
                 <label for="txt_contact_number" class="form-label">Contact Number</label>
                 <input type="text" name="contact_number" id="txt_contact_number" class="form-control" value="{{old('contact_number')}}">
             </div>
-        </div>
-        <div class="row">
             <div class="col-md-6 mb-2">
                 <label for="txt_photo_url" class="form-label">User photo</label>
                 <input type="file" name="photo_url" id="txt_photo_url" class="form-control">
             </div>
+        </div>
+        {{-- <div class="row">
             <div class="col-md-6 mb-2">
                 <label for="txt_legal_id" class="form-label">Legal ID</label>
                 <input type="file" name="legal_id_photo_url" id="txt_legal_id" class="form-control">
             </div>
-        </div>
+        </div> --}}
         <div class="row">
-            <div class="col d-flex">
+            <div class="col d-flex mt-3">
                 <a href="{{route('user.index')}}" class="btn btn-outline-secondary me-auto">Cancel</a>
                 <input type="submit" value="Save" class="btn btn-primary">
             </div>

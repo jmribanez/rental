@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('utilities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address');
-            $table->string('contact_number');
+            $table->string('address')->nullable();
+            $table->string('contact_number')->nullable();
             $table->string('type');
             $table->timestamps();
         });

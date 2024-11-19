@@ -1,16 +1,17 @@
 @extends('layouts.app')
 @section('content')
     <div class="d-flex align-items-left mb-3">
-        <h1 class="mb-0 me-auto">New Property</h1>
+        <h1 class="mb-0 me-auto">Edit Property</h1>
     </div>
-    <form action="{{route('property.store')}}" method="post" class="row" enctype="multipart/form-data">
+    <form action="{{route('property.update',$property->id)}}" method="post" class="row" enctype="multipart/form-data">
         @csrf
+        @method('PATCH')
         <div class="col-md-4 mb-3">
             <div class="card">
-                <img src="{{asset('storage/property_photos/propertynophoto.jpg')}}" alt="property photo" class="card-img-top" style="height: 150px; object-fit:cover;">
+                <img src="{{($property->photo_url != null)?asset('storage/property_photos/'.$property->photo_url):asset('storage/property_photos/propertynophoto.jpg')}}" alt="property photo" class="card-img-top" style="height: 150px; object-fit:cover;">
                 <div class="card-body">
                     <div class="mb-3">
-                        <p class="m-0">Property photo</p>
+                        <p class="m-0">Set new property photo</p>
                         <input type="file" name="property_photo" id="txt_property_photo" class="form-control">
                     </div>
                 </div>
@@ -21,26 +22,25 @@
             <div class="row">
                 <div class="col-md-8 mb-2">
                     <label for="txt_property_name" class="form-label">Property name<span class="text-danger">*</span></label>
-                    <input type="text" name="property_name" id="txt_property_name" class="form-control" required>
+                    <input type="text" name="property_name" id="txt_property_name" class="form-control" value="{{$property->name}}" required>
                 </div>
                 <div class="col-md-4 mb-2">
                     <label for="txt_property_type" class="form-label">Type<span class="text-danger">*</span></label>
                     <select name="property_type" id="sel_property_type" class="form-select" required>
-                        <option disabled selected>Choose type</option>
-                        <option value="Apartment">Apartment</option>
-                        <option value="Duplex">Duplex</option>
-                        <option value="Single">Single</option>
+                        <option value="Apartment" {{($property->type =='Apartment')?'selected':''}}>Apartment</option>
+                        <option value="Duplex" {{($property->type =='Duplex')?'selected':''}}>Duplex</option>
+                        <option value="Single" {{($property->type =='Single')?'selected':''}}>Single</option>
                     </select>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8 mb-2">
                     <label for="txt_address_street" class="form-label">Street Address<span class="text-danger">*</span></label>
-                    <input type="text" name="address_street" id="txt_address_street" class="form-control" required>
+                    <input type="text" name="address_street" id="txt_address_street" class="form-control" value="{{$property->address_street}}" required>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="txt_address_city" class="form-label">City<span class="text-danger">*</span></label>
-                    <input name="address_city" list="city_names" id="txt_address_city" class="form-control" required>
+                    <input name="address_city" list="city_names" id="txt_address_city" class="form-control" value="{{$property->address_city}}" required>
                     <datalist id="city_names">
                         <option value="Angeles City"></option>
                         <option value="Apalit"></option>
@@ -69,19 +69,19 @@
             <div class="row row-cols-2 row-cols-md-4">
                 <div class="col mb-2">
                     <label for="txt_bedrooms" class="form-label">Bedrooms</label>
-                    <input type="number" name="bedrooms" id="txt_bedrooms" class="form-control" min="1">
+                    <input type="number" name="bedrooms" id="txt_bedrooms" class="form-control" min="1" value="{{$property->bedrooms}}">
                 </div>
                 <div class="col mb-2">
                     <label for="txt_bathrooms" class="form-label">Bathrooms</label>
-                    <input type="number" name="bathrooms" id="txt_bathrooms" class="form-control" min="1">
+                    <input type="number" name="bathrooms" id="txt_bathrooms" class="form-control" min="1" value="{{$property->bathrooms}}">
                 </div>
                 <div class="col mb-2">
                     <label for="txt_floor_area" class="form-label">Floor area</label>
-                    <input type="number" name="floor_area" id="txt_floor_area" class="form-control" min="1">
+                    <input type="number" name="floor_area" id="txt_floor_area" class="form-control" min="1" value="{{$property->floor_area}}">
                 </div>
                 <div class="col mb-3">
                     <label for="txt_land_size" class="form-label">Land size</label>
-                    <input type="number" name="land_size" id="txt_land_size" class="form-control" min="1">
+                    <input type="number" name="land_size" id="txt_land_size" class="form-control" min="1" value="{{$property->land_size}}">
                 </div>
             </div>
             <div class="d-flex justify-content-end">
