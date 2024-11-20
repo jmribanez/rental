@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Models\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -68,7 +69,9 @@ class PropertyController extends Controller
             }
         }
         $property->save();
-        return to_route('property.show',$property->id);
+        return to_route('property.show',$property->id)
+            ->with('status','success')
+            ->with('message','Property ' . $property->name . ' created.');
     }
 
     /**
@@ -78,8 +81,10 @@ class PropertyController extends Controller
     {
         // include auth can
         $property = Property::find($id);
+        $available_utilities = Utility::all();
         return view('pages.properties.show')
-            ->with('property', $property);
+            ->with('property', $property)
+            ->with('available_utilities', $available_utilities);
 
     }
 
@@ -127,7 +132,9 @@ class PropertyController extends Controller
             }
         }
         $property->update();
-        return to_route('property.show',$id);
+        return to_route('property.show',$id)
+            ->with('status','success')
+            ->with('message','Property ' . $property->name . ' updated.');
     }
 
     /**
@@ -136,5 +143,34 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         //
+    }
+
+    /**
+     * Set the utility for a property defined by $id
+     */
+    public function setUtility(Request $request, string $id) {
+        $validated = $request->validate([
+            'utility_id' => 'required',
+            'account_number' => 'required',
+        ]);
+        $property = Property::find($id);
+        $property->utilities()->attach([$request->utility_id => ['account_number' => $request->account_number]]);
+        return to_route('property.show',$id)
+            ->with('status','success')
+            ->with('message','Utility has been added for ' . $property->name . '.');
+    }
+
+    /**
+     * Unset the utility for a property defined by $id
+     */
+    public function unsetUtility(Request $request, string $id) {
+        $validated = $request->validate([
+            'utility_id' => 'required',
+        ]);
+        $property = Property::find($id);
+        $property->utilities()->detach($request->utility_id);
+        return to_route('property.show',$id)
+            ->with('status','success')
+            ->with('message','Utility has been removed from ' . $property->name . '.');
     }
 }

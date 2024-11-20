@@ -13,3 +13,5 @@ Auth::routes(['register' => false]);
 Route::resource('/user', UserController::class);
 Route::resource('/property', PropertyController::class);
 Route::resource('/utility', UtilityController::class);
+Route::post('/property/{id}/setUtility',[PropertyController::class, 'setUtility'])->name('property.setUtility');
+Route::post('/property/{id}/unsetUtility',[PropertyController::class, 'unsetUtility'])->name('property.unsetUtility');

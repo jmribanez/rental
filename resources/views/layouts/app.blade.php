@@ -90,6 +90,7 @@
         </nav>
 
         <main class="container py-4">
+            @include('inc.message')
             @yield('content')
         </main>
     </div>

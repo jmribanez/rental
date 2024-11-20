@@ -8,6 +8,17 @@
     </div>
     @endif
     <p class="m-0 fw-bold mt-3">Subscribed Households</p>
+    <ul class="list-group list-group-flush">
+        @if(count($selectedUtility->properties)>0)
+        @foreach ($selectedUtility->properties as $pu)
+        <a href="{{route('property.show',$pu->id)}}" class="list-group-item list-group-item-action d-flex align-items-center justify-content-between"><span>{{$pu->name}}</span><span>{{$pu->pivot->account_number}}</span></a>
+        @endforeach
+        
+        @else
+        <li class="list-group-item"><em>No households subscribed.</em></li>
+        @endif
+    </ul>
+    
     <div class="d-flex mt-3">
         <a href="{{route('utility.index')}}" class="btn btn-outline-secondary">Cancel</a>
         <a href="{{route('utility.edit',$selectedUtility->id)}}" class="btn btn-secondary ms-auto">Edit</a>

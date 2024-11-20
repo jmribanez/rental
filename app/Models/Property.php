@@ -17,7 +17,7 @@ class Property extends Model
 
     // function utilities (BelongsToMany) via Property_Utility table
     public function utilities(): BelongsToMany {
-        return $this->belongsToMany(Utility::class);
+        return $this->belongsToMany(Utility::class)->withPivot('account_number');
     }
 
     // function contracts (HasMany) via Contracts table -> property foreign key

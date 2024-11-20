@@ -58,7 +58,9 @@ class UtilityController extends Controller
         $utility->address = $request->utility_address;
         $utility->contact_number = $request->utility_contact;
         $utility->save();
-        return to_route('utility.show',$utility->id);
+        return to_route('utility.show',$utility->id)
+            ->with('status','success')
+            ->with('message','Utility ' . $utility->name . ' created.');
     }
 
     /**
@@ -107,7 +109,9 @@ class UtilityController extends Controller
         $utility->address = $request->utility_address;
         $utility->contact_number = $request->utility_contact;
         $utility->update();
-        return to_route('utility.show', $id);
+        return to_route('utility.show', $id)
+            ->with('status','success')
+            ->with('message','Utility ' . $utility->name . ' updated.');
     }
 
     /**

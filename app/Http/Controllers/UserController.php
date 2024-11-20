@@ -92,7 +92,9 @@ class UserController extends Controller
         }
         $user->save();
         $user->assignRole($request->role);
-        return to_route('user.show',$user->id);
+        return to_route('user.show',$user->id)
+            ->with('status','success')
+            ->with('message','User ' . $user->name_first . ' ' . $user->name_last . ' created.');
     }
 
     /**
@@ -172,7 +174,9 @@ class UserController extends Controller
             $user->roles()->detach();
             $user->assignRole($request->role);
         }
-        return to_route('user.show',$user->id);
+        return to_route('user.show',$user->id)
+            ->with('status','success')
+            ->with('message','User ' . $user->name_first . ' ' . $user->name_last . ' updated.');
     }
 
     /**

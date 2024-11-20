@@ -10,6 +10,6 @@ class Utility extends Model
     protected $fillable = ['name', 'address','contact_number','type'];
 
     public function properties(): BelongsToMany {
-        return $this->belongsToMany(Property::class);
+        return $this->belongsToMany(Property::class)->withPivot('account_number');
     }
 }
