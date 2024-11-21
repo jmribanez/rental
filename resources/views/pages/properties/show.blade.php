@@ -54,7 +54,10 @@
             </div>
         </div>
         <div class="col-md-4 mb-3">
-            <h3>Contracts</h3>
+            <div class="d-flex justify-content-between">
+                <h3 class="m-0">Contracts</h3>
+                <a href="{{route('property.contract.index',$property->id)}}" class="btn btn-sm btn-outline-secondary">View</a>
+            </div>
             <p class="m-0 mb-1 fw-bold">Active Contract</p>
             <div class="border rounded p-3 mb-3">
                 <div class="d-flex justify-content-between">
