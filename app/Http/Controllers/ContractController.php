@@ -81,7 +81,8 @@ class ContractController extends Controller
      */
     public function edit(Contract $contract)
     {
-        //
+        return view('pages.contracts.edit')
+            ->with('contract',$contract);
     }
 
     /**
