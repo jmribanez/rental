@@ -20,7 +20,7 @@ class UtilityFactory extends Factory
             'name' => fake()->company(),
             'type' => 'Electric',
             'address' => 'Angeles City',
-            'contact' => '0449871234',
+            'contact_number' => fake()->phoneNumber(),
         ];
     }
 }

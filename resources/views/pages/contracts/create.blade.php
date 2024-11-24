@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-md-6 mb-2">
                     <label for="sel_tenant" class="form-label">Tenant<span class="text-danger">*</span></label>
-                    <select name="tenant" id="sel_tenant" class="form-select">
+                    <select name="tenant" id="sel_tenant" class="form-select" required>
                         <option disabled selected>Choose a tenant</option>
                         @foreach ($tenants as $tenant)
                         <option value="{{$tenant->id}}">{{$tenant->name_first . ' ' . $tenant->name_last}}</option>

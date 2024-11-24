@@ -6,6 +6,7 @@ use App\Models\Contract;
 use App\Models\Property;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ContractController extends Controller
 {
@@ -38,7 +39,13 @@ class ContractController extends Controller
     {
         //
         $validated = $request->validate([
-
+            'tenant' => 'required',
+            'date_contract' => 'required',
+            'date_start' => 'required',
+            'date_end' => 'required',
+            'amount_rental' => 'required',
+            'amount_security_deposit' => 'required',
+            'invoice_day' => 'required',
         ]);
         $contract = new Contract;
         $contract->property_id = $property->id;
@@ -64,7 +71,7 @@ class ContractController extends Controller
         $contract->save();
         return to_route('contract.show',$contract->id)
             ->with('status', 'success')
-            ->with('message', 'Contract created for ' . $property->name . '.');
+            ->with('message', 'Contract created in ' . $property->name . ' for ' . $contract->tenant->name_first . ' ' . $contract->tenant->name_last .'.');
     }
 
     /**
@@ -81,8 +88,12 @@ class ContractController extends Controller
      */
     public function edit(Contract $contract)
     {
+        $tenants = User::with('roles')->get()->filter(
+            fn ($user) => $user->roles->where('name', 'Tenant')->toArray()
+        );
         return view('pages.contracts.edit')
-            ->with('contract',$contract);
+            ->with('contract',$contract)
+            ->with('tenants',$tenants);
     }
 
     /**
@@ -90,7 +101,36 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
-        //
+        $validated = $request->validate([
+            'tenant' => 'required',
+            'date_contract' => 'required',
+            'date_start' => 'required',
+            'date_end' => 'required',
+            'amount_rental' => 'required',
+            'amount_security_deposit' => 'required',
+            'invoice_day' => 'required',
+        ]);
+        // $contract->user_id = $request->tenant;
+        $contract->date_contract = $request->date_contract;
+        $contract->date_start = $request->date_start;
+        $contract->date_end = $request->date_end;
+        $contract->invoice_day = $request->invoice_day;
+        $contract->amount_security_deposit = $request->amount_security_deposit;
+        $contract->amount_rental = $request->amount_rental;
+        $contract->agreed_payment_mode = $request->agreed_payment_mode;
+        if($request->hasFile('scanned_contract_file')) {
+            $allowedFileExtension = ['pdf'];
+            $file = $request->file('scanned_contract_file');
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension, $allowedFileExtension);
+            if($check) {
+                Storage::delete('scanned_contracts/'.$contract->scanned_contract_file);
+                $newFileName = substr(bin2hex(random_bytes(ceil(6/2))),0,6);
+                $file->storeAs('scanned_contracts', $newFileName . "." . $extension);
+                $contract->scanned_contract_file = $newFileName . "." . $extension;
+            }
+        }
+        $contract->update();
     }
 
     /**

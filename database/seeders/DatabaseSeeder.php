@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Property;
 use App\Models\User;
+use App\Models\Utility;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -167,5 +168,31 @@ class DatabaseSeeder extends Seeder
 
         // Create dummy properties
         Property::factory()->count(5)->create();
+
+        // Create dummy utilities
+        Utility::factory()->create([
+            'name' => 'Angeles Electric Inc.',
+            'type' => 'Electric',
+            'address' => 'Angeles City',
+            'contact_number' => fake()->phoneNumber(),
+        ]);
+        Utility::factory()->create([
+            'name' => 'PrimeWater Mabalacat',
+            'type' => 'Water',
+            'address' => 'Angeles City',
+            'contact_number' => fake()->phoneNumber(),
+        ]);
+        Utility::factory()->create([
+            'name' => 'Converge ICT',
+            'type' => 'Internet',
+            'address' => 'Angeles City',
+            'contact_number' => fake()->phoneNumber(),
+        ]);
+        Utility::factory()->create([
+            'name' => 'PLDT',
+            'type' => 'Telephone',
+            'address' => 'Angeles City',
+            'contact_number' => fake()->phoneNumber(),
+        ]);
     }
 }

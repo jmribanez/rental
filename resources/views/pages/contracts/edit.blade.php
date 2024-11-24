@@ -51,8 +51,10 @@
             <div class="row">
                 <div class="col-md-6 mb-2">
                     <label for="sel_tenant" class="form-label">Tenant<span class="text-danger">*</span></label>
-                    <select name="tenant" id="sel_tenant" class="form-select">
-                        <option disabled selected>Choose a tenant</option>
+                    <select name="tenant" id="sel_tenant" class="form-select" disabled>
+                        @foreach ($tenants as $tenant)
+                        <option value="{{$tenant->id}}" {{($contract->user_id==$tenant->id)?'selected':''}}>{{$tenant->name_first . ' ' . $tenant->name_last}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-6 mb-2">
