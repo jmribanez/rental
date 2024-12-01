@@ -85,7 +85,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4 mb-2">
-                    <label for="txt_invoice_day" class="form-label">Invoice day<span class="text-danger">*</span></label>
+                    <label for="txt_invoice_day" class="form-label">Cut-off day<span class="text-danger">*</span></label>
                     <input type="number" name="invoice_day" id="txt_invoice_day" class="form-control" min="1" max="28" required>
                 </div>
                 <div class="col-md-4 mb-2">

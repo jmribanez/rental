@@ -79,7 +79,7 @@
         <div class="row">
             <div class="col-md-4 mb-2">
                 <h5 class="m-0">{{$contract->invoice_day}}</h5>
-                <p class="m-0 small">Invoice day</p>
+                <p class="m-0 small">Cut-off day</p>
             </div>
             <div class="col-md-4 mb-2">
                 <h5 class="m-0">{{$contract->agreed_payment_mode??'Not set'}}</h5>
