@@ -31,14 +31,16 @@
                 <div class="mb-2">
                     <p class="fw-bold m-0">Utilities</p>
                     @if(count($contract->property->utilities)>0)
-                    @foreach ($contract->property->utilities as $pu)
-                    <div class="d-flex align-items-center mb-1">
-                        <span><a href="{{route('utility.show',$pu->id)}}" class="text-decoration-none">{{$pu->name}}</a></span>
-                        <span class="ms-auto">{{$pu->pivot->account_number}}</span>
-                    </div>
-                    @endforeach
+                    <ul class="list-group list-group-flush">
+                        @foreach ($contract->property->utilities as $pk => $pu)
+                        <li class="list-group-item d-flex">
+                            <a href="{{route('utility.show',$pu->id)}}" class="text-decoration-none text-dark">{{$pu->name}}</a>
+                            <span class="ms-auto">{{$pu->pivot->account_number}}</span>
+                        </li>
+                        @endforeach
+                    </ul>
                     @else
-                    <p class="m-0"><em>No utilities added.</em></p>
+                        <p class="m-0"><em>No utilities added.</em></p>
                     @endif
                 </div>
             </div>

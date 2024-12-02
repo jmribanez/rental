@@ -94,8 +94,10 @@ class PropertyController extends Controller
     public function edit(string $id)
     {
         $property = Property::find($id);
+        $available_utilities = Utility::all();
         return view('pages.properties.edit')
-            ->with('property', $property);
+            ->with('property', $property)
+            ->with('available_utilities', $available_utilities);
     }
 
     /**
@@ -155,7 +157,7 @@ class PropertyController extends Controller
         ]);
         $property = Property::find($id);
         $property->utilities()->attach([$request->utility_id => ['account_number' => $request->account_number]]);
-        return to_route('property.show',$id)
+        return to_route('property.edit',$id)
             ->with('status','success')
             ->with('message','Utility has been added for ' . $property->name . '.');
     }
@@ -169,7 +171,7 @@ class PropertyController extends Controller
         ]);
         $property = Property::find($id);
         $property->utilities()->detach($request->utility_id);
-        return to_route('property.show',$id)
+        return to_route('property.edit',$id)
             ->with('status','success')
             ->with('message','Utility has been removed from ' . $property->name . '.');
     }

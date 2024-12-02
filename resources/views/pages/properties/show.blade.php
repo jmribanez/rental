@@ -31,57 +31,36 @@
                             <p class="small m-0">Land size</p>
                         </div>
                     </div>
-                    <div class="mb-2">
-                        <div class="d-flex justify-content-between align-items-center">
+                    <div class="mb-1">
+                        <div class="d-flex justify-content-start align-items-center">
                             <p class="fw-bold m-0">Utilities</p>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddUtility" class="small link-underline link-underline-opacity-0"><i class="fa-solid fa-plus"></i> Add</a>
                         </div>
                         @if(count($property->utilities)>0)
-                        @foreach ($property->utilities as $pu)
-                        <form action="{{route('property.unsetUtility',$property->id)}}" method="post" class="d-flex align-items-center mb-1">
-                            @csrf
-                            <input type="hidden" name="utility_id" value="{{$pu->id}}">
-                            <span><a href="{{route('utility.show',$pu->id)}}" class="text-decoration-none">{{$pu->name}}</a></span>
-                            <span class="ms-auto">{{$pu->pivot->account_number}}</span>
-                            <button type="submit" class="btn btn-sm btn-link text-danger ms-1 p-0"><i class="fa-solid fa-xmark"></i></button>
-                        </form>
-                        @endforeach
+                        <ul class="list-group list-group-flush">
+                            @foreach ($property->utilities as $pk => $pu)
+                            <li class="list-group-item d-flex">
+                                <a href="{{route('utility.show',$pu->id)}}" class="text-decoration-none text-dark">{{$pu->name}}</a>
+                                <span class="ms-auto">{{$pu->pivot->account_number}}</span>
+                            </li>
+                            @endforeach
+                        </ul>
                         @else
-                        <p class="m-0"><em>No utilities added.</em></p>
+                            <p class="m-0"><em>No utilities added.</em></p>
                         @endif
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="d-flex justify-content-between">
-                <h3 class="m-0">Contracts</h3>
-                <a href="{{route('property.contract.index',$property->id)}}" class="btn btn-sm btn-outline-secondary">View</a>
-            </div>
-            <p class="m-0 mb-1 fw-bold">Active Contract</p>
-            <div class="border rounded p-3 mb-3">
-                <div class="d-flex justify-content-between">
-                    <p class="m-0 fw-bold">Juan Dela Cruz</p>
-                    <p class="m-0">Php 12,300.00</p>
-                </div>
-                <p class="m-0 small">January 1, 2024 to December 31, 2024</p>
-            </div>
-            <p class="m-0 mb-1 fw-bold">Previous Contracts</p>
-            <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0 fw-bold">{{fake()->firstName() . " " . fake()->lastName()}}</p>
-                        <p class="m-0">Php 12,300.00</p>
+                    <hr class="my-2">
+                    <p class="m-0 mb-1 fw-bold">Active Contract</p>
+                    <div class="px-3">
+                        <div class="d-flex justify-content-between">
+                            <p class="m-0 fw-bold">Juan Dela Cruz</p>
+                            <p class="m-0">Php 12,300.00</p>
+                        </div>
+                        <p class="m-0 small mb-3">January 1, 2024 to December 31, 2024</p>
                     </div>
-                    <p class="m-0 small">January 1, 2023 to December 31, 2023</p>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0 fw-bold">{{fake()->firstName() . " " . fake()->lastName()}}</p>
-                        <p class="m-0">Php 11,200.00</p>
+                    <div class="d-flex justify-content-end">
+                        <a href="{{route('property.contract.index',$property->id)}}" class="btn btn-sm btn-outline-primary">Manage Contracts</a>
                     </div>
-                    <p class="m-0 small">January 1, 2022 to December 31, 2022</p>
-                </a>
+                </div>
             </div>
         </div>
         <div class="col-md-4 mb-3">
@@ -94,23 +73,36 @@
                 </div>
                 <p class="m-0 small">Last payment: November 16, 2024</p>
             </div>
-            <p class="m-0 mb-1 fw-bold">Payments</p>
-            <div class="list-group list-group-flush mb-3">
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">November 16, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">October 13, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
+            <div class="d-flex mb-1 align-items-center">
+                <p class="m-0 me-auto fw-bold">Invoice</p>
+                <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a>
+                <a href="#" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
             </div>
-            <p class="m-0 mb-1 fw-bold">Invoice</p>
             <div class="list-group list-group-flush mb-3">
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0">November 1, 2024</p>
+                        <p class="m-0">Php 12,300.00</p>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0">October 1, 2024</p>
+                        <p class="m-0">Php 12,300.00</p>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0">November 1, 2024</p>
+                        <p class="m-0">Php 12,300.00</p>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0">October 1, 2024</p>
+                        <p class="m-0">Php 12,300.00</p>
+                    </div>
+                </a>
                 <a href="#" class="list-group-item list-group-item-action">
                     <div class="d-flex justify-content-between">
                         <p class="m-0">November 1, 2024</p>
@@ -125,34 +117,51 @@
                 </a>
             </div>
         </div>
-    </div>
-    <div id="modalAddUtility" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <form class="modal-content" method="post" action="{{route('property.setUtility',$property->id)}}">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Utility</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-2">
-                        <label for="sel_utility_id" class="form-label">Utility provider</label>
-                        <select name="utility_id" id="sel_utility_id" class="form-select">
-                            @foreach ($available_utilities as $a_u)
-                            <option value="{{$a_u->id}}">{{$a_u->type}} - {{$a_u->name}}</option>
-                            @endforeach
-                        </select>
+        <div class="col-md-4 mb-3">
+            <div class="d-flex mb-1 align-items-center">
+                <p class="m-0 me-auto fw-bold">Payments</p>
+                <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a>
+                <a href="#" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
+            </div>
+            <div class="list-group list-group-flush mb-3">
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0">November 16, 2024</p>
+                        <p class="m-0">Php 12,300.00</p>
                     </div>
-                    <div class="mb-2">
-                        <label for="txt_account_number" class="form-label">Account number</label>
-                        <input type="text" name="account_number" id="txt_account_number" class="form-control">
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0">October 13, 2024</p>
+                        <p class="m-0">Php 12,300.00</p>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" value="Add" class="btn btn-primary">
-                </div>
-            </form>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0">November 16, 2024</p>
+                        <p class="m-0">Php 12,300.00</p>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0">October 13, 2024</p>
+                        <p class="m-0">Php 12,300.00</p>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0">November 16, 2024</p>
+                        <p class="m-0">Php 12,300.00</p>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0">October 13, 2024</p>
+                        <p class="m-0">Php 12,300.00</p>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
+    
 @endsection

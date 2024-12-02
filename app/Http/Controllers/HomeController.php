@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +34,9 @@ class HomeController extends Controller
                 return view('pages.home.staff');
                 break;
             default:
-                return view('pages.home.tenant');
+                $contract = Contract::where('user_id',Auth::user()->id)->get()[0];
+                return view('pages.home.tenant')
+                    ->with('contract',$contract);
                 break;
         }
         return view('regularhome');
