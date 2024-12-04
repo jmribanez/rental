@@ -38,7 +38,7 @@
                             <a href="{{route('property.index')}}" class="nav-link">Properties</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('/')}}" class="nav-link">Tenants</a>
+                            <a href="{{route('tenant.index')}}" class="nav-link">Tenants</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/')}}" class="nav-link">Transactions</a>

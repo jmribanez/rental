@@ -20,3 +20,4 @@ Route::post('/property/{id}/setUtility',[PropertyController::class, 'setUtility'
 Route::post('/property/{id}/unsetUtility',[PropertyController::class, 'unsetUtility'])->name('property.unsetUtility');
 Route::get('tenant', [TenantController::class, 'index'])->name('tenant.index');
 Route::get('tenant/{tenant}', [TenantController::class, 'show'])->name('tenant.show');
+Route::get('tenant/{tenant}/contracts', [TenantController::class, 'listContracts'])->name('tenant.contracts');
