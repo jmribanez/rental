@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <h1 class="">Welcome</h1>
+    <h1>Welcome, {{Auth::user()->name_first}}</h1>
     <div class="row">
         <div class="col-md-4 mb-3">
             <p class="m-0 mb-1 fw-bold">Balance</p>
@@ -99,6 +99,7 @@
             </div>
         </div>
         <div class="col-md-4 mb-3">
+            @if(count($contract)>0) <?php $contract = $contract[0]; ?>
             <div class="card">
                 <img src="{{($contract->property->photo_url != null)?asset('storage/property_photos/'.$contract->property->photo_url):asset('storage/property_photos/propertynophoto.jpg')}}" style="height: 150px; object-fit:cover;" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -156,6 +157,11 @@
                     </div>
                 </div>
             </div>
+            @else
+            <div class="border p-3 rounded">
+                <p class="m-0 text-center">No contracts</p>
+            </div>
+            @endif
         </div>
     </div>
 @endsection

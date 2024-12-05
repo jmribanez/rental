@@ -28,13 +28,14 @@ class HomeController extends Controller
         $userRole = Auth::user()->getRoleNames()[0];
         switch($userRole) {
             case 'Administrator':
+            case 'Landlord':
                 return view('pages.home.admin');
                 break;
             case 'Staff':
                 return view('pages.home.staff');
                 break;
             default:
-                $contract = Contract::where('user_id',Auth::user()->id)->get()[0];
+                $contract = Contract::where('user_id',Auth::user()->id)->get();
                 return view('pages.home.tenant')
                     ->with('contract',$contract);
                 break;

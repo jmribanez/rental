@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Rental Information System') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -21,7 +21,7 @@
         <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Rental Information System') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -34,15 +34,21 @@
                         <li class="nav-item">
                             <a href="{{url('/')}}" class="nav-link">Home</a>
                         </li>
+                        @can('list properties')
                         <li class="nav-item">
                             <a href="{{route('property.index')}}" class="nav-link">Properties</a>
                         </li>
+                        @endcan
+                        @can('list tenants')
                         <li class="nav-item">
                             <a href="{{route('tenant.index')}}" class="nav-link">Tenants</a>
                         </li>
+                        @endcan
+                        @can('list transactions')
                         <li class="nav-item">
                             <a href="{{url('/')}}" class="nav-link">Transactions</a>
                         </li>
+                        @endcan
                     </ul>
                     @endauth
                     <!-- Right Side Of Navbar -->
@@ -70,8 +76,12 @@
                                     @can('list users')
                                     <a href="{{route('user.index')}}" class="dropdown-item">Users</a>
                                     @endcan
+                                    @can('list utilities')
                                     <a href="{{route('utility.index')}}" class="dropdown-item">Utilities</a>
+                                    @endcan
+                                    @can('list utilities')
                                     <hr class="dropdown-divider">
+                                    @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

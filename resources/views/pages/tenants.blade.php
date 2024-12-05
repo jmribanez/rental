@@ -9,7 +9,12 @@
             <ul class="list-group">
                 @if (count($tenants)>0)
                     @foreach ($tenants as $t)
-                        <a href="{{route('tenant.show',$t->id)}}" class="list-group-item list-group-item-action {{(($selectedTenant->id??0) == $t->id)?'active':'';}}">{{$t->name_last . ", " . $t->name_first}}</a>
+                        <a href="{{route('tenant.show',$t->id)}}" class="list-group-item list-group-item-action {{(($selectedTenant->id??0) == $t->id)?'active':'';}}">
+                            <div class="d-flex justify-content-between">
+                                <span>{{$t->name_last . ", " . $t->name_first}}</span>
+                                <span><em class="text-secondary">Up-to-date</em></span>
+                            </div>
+                        </a>
                     @endforeach
                 @else
                     <li class="list-group-item text-secondary"><em>No tenants here.</em></li>

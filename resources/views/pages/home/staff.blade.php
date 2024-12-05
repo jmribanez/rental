@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <h1>Staff</h1>
+    <h1>Welcome, {{Auth::user()->name_first}}</h1>
     <div class="row">
         <div class="col-md-4 mb-3">
 

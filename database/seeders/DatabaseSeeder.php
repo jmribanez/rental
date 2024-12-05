@@ -87,6 +87,7 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'view user'])->syncRoles([$rAd, $rLa, $rCa]);
         Permission::create(['name' => 'delete user'])->syncRoles([$rAd]);
         Permission::create(['name' => 'view self'])->syncRoles([$rAd, $rLa, $rCa, $rTe]);
+        Permission::create(['name' => 'list tenants'])->syncRoles([$rAd, $rLa, $rCa]);
 
         // Property permissions
         Permission::create(['name' => 'list properties'])->syncRoles([$rAd, $rLa, $rCa]);
@@ -100,6 +101,7 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'unset propertyuser'])->syncRoles([$rAd, $rLa]);
 
         // Utility permissions
+        Permission::create(['name' => 'list utilities'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'create utility'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'edit utility'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'view utility'])->syncRoles([$rAd, $rLa, $rCa, $rTe]);
@@ -109,24 +111,28 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'unset propertyutility'])->syncRoles([$rAd, $rLa]);
 
         // Contract permissions
+        Permission::create(['name' => 'list contracts'])->syncRoles([$rAd, $rLa, $rCa]);
         Permission::create(['name' => 'create contract'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'edit contract'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'view contract'])->syncRoles([$rAd, $rLa, $rCa, $rTe]);
         Permission::create(['name' => 'delete contract'])->syncRoles([$rAd, $rLa]);
 
         // Invoice permissions
+        Permission::create(['name' => 'list invoices'])->syncRoles([$rAd, $rLa, $rCa]);
         Permission::create(['name' => 'create invoice'])->syncRoles([$rAd, $rLa, $rCa]);
         Permission::create(['name' => 'edit invoice'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'view invoice'])->syncRoles([$rAd, $rLa, $rCa, $rTe]);
         Permission::create(['name' => 'cancel invoice'])->syncRoles([$rAd, $rLa]);
 
         // Transaction permissions
+        Permission::create(['name' => 'list transactions'])->syncRoles([$rAd, $rLa, $rCa]);
         Permission::create(['name' => 'create transaction'])->syncRoles([$rAd, $rLa, $rCa]);
         Permission::create(['name' => 'edit transaction'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'view transaction'])->syncRoles([$rAd, $rLa, $rCa, $rTe]);
         Permission::create(['name' => 'cancel transaction'])->syncRoles([$rAd, $rLa]);
 
         // Account permissions
+        Permission::create(['name' => 'list accounts'])->syncRoles([$rAd, $rLa, $rCa]);
         Permission::create(['name' => 'create account'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'edit account'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'view account'])->syncRoles([$rAd, $rLa]);
