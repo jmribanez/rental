@@ -24,7 +24,7 @@
                     <option value="Administrator" {{(old('role')=='Administrator')?'selected':''}}>Administrator</option>
                     <option value="Landlord" {{(old('role')=='Landlord')?'selected':''}}>Landlord</option>
                     <option value="Staff" {{(old('role')=='Staff')?'selected':''}}>Staff</option>
-                    <option value="Tenant" {{(old('role')=='Tenant')?'selected':''}}>Tenant</option>
+                    <option value="Tenant" {{(old('role')=='Tenant' || $isTenant)?'selected':''}}>Tenant</option>
                 </select>
             </div>
         </div>

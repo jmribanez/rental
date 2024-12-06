@@ -3,7 +3,7 @@
     <h1>Tenants</h1>
     <div class="row">
         <div class="col-md-2 mb-3">
-            <a href="{{route('user.create')}}" class="btn btn-primary">New tenant</a>
+            <a href="{{route('user.create',['isTenant'=>'1'])}}" class="btn btn-primary">New tenant</a>
         </div>
         <div class="col-md-4 mb-3">
             <ul class="list-group">

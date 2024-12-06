@@ -38,14 +38,16 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         // include auth cans
+        $isTenant = $request->query('isTenant',null);
         $pagefn = 'create';
         $users = User::all();
         return view('pages.users')
             ->with('users', $users)
-            ->with('pagefn', $pagefn);
+            ->with('pagefn', $pagefn)
+            ->with('isTenant',$isTenant??false);
     }
 
     /**

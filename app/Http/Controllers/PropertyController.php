@@ -65,7 +65,7 @@ class PropertyController extends Controller
             if($check) {
                 $newFileName = substr(bin2hex(random_bytes(ceil(6/2))),0,6);
                 $file->storeAs('property_photos', $newFileName . "." . $extension);
-                $property->property_photo = $newFileName . "." . $extension;
+                $property->photo_url = $newFileName . "." . $extension;
             }
         }
         $property->save();
@@ -130,7 +130,7 @@ class PropertyController extends Controller
                 Storage::delete('property_photos/'.$property->photo_url);
                 $newFileName = substr(bin2hex(random_bytes(ceil(6/2))),0,6);
                 $file->storeAs('property_photos', $newFileName . "." . $extension);
-                $property->property_photo = $newFileName . "." . $extension;
+                $property->photo_url = $newFileName . "." . $extension;
             }
         }
         $property->update();

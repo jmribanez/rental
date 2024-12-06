@@ -19,7 +19,7 @@
             <div class="border rounded p-3">
                 @switch($pagefn)
                     @case('create')
-                        <x-users.create/>
+                        <x-users.create :isTenant="$isTenant"/>
                         @break
                     @case('show')
                         <x-users.show :selectedUser="$selectedUser"/>
