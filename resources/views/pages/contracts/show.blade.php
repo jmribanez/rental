@@ -99,4 +99,52 @@
             <a href="{{route('contract.edit',$contract->id)}}" class="btn btn-secondary">Edit</a>
         </div>
     </div>
+    <div class="col-md-4 mb-3">
+        <p class="m-0 mb-1 fw-bold">Balance</p>
+        <div class="border rounded p-3 mb-3">
+            <div class="d-flex justify-content-between">
+                <p class="m-0 fw-bold">Amount</p>
+                <p class="m-0"><em>Up-to-date</em></p>
+            </div>
+            <p class="m-0 small">Last payment: November 16, 2024</p>
+        </div>
+        <div class="d-flex mb-1 align-items-center">
+            <p class="m-0 me-auto fw-bold">Invoice</p>
+            <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a>
+            <a href="#" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
+        </div>
+        <div class="list-group list-group-flush mb-3">
+            <a href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex justify-content-between">
+                    <p class="m-0">November 1, 2024</p>
+                    <p class="m-0">Php 12,300.00</p>
+                </div>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex justify-content-between">
+                    <p class="m-0">October 1, 2024</p>
+                    <p class="m-0">Php 12,300.00</p>
+                </div>
+            </a>
+        </div>
+        <div class="d-flex mb-1 align-items-center">
+            <p class="m-0 me-auto fw-bold">Payments</p>
+            <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a>
+            <a href="#" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
+        </div>
+        <div class="list-group list-group-flush mb-3">
+            <a href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex justify-content-between">
+                    <p class="m-0">November 16, 2024</p>
+                    <p class="m-0">Php 12,300.00</p>
+                </div>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex justify-content-between">
+                    <p class="m-0">October 13, 2024</p>
+                    <p class="m-0">Php 12,300.00</p>
+                </div>
+            </a>
+        </div>
+    </div>
 @endsection
