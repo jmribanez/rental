@@ -34,13 +34,14 @@ class DatabaseSeeder extends Seeder
          * MODELS :
          * [User]
          *      - id, first_name, last_name, email, password, contact_number, address, photo, legal_id_photo, 
-         *          role*, properties (belongsToMany to determine landlord).
+         *          role*, properties (hasMany to determine landlord).
          * [Property]
          *      - id, name, address_street, address_city, 
          *          (optionals) 'photo_url', 'bedrooms','bathrooms','floor_area','land_size'
-         *          landlords (user: belongsToMany), utilities (belongsToMany), contracts (hasMany)
+         *          landlords (user: belongsTo), utilities (belongsToMany), contracts (hasMany)
          * [PropertyUser]
          *      - property_id, user_id
+         *      - change relationship to one landlord has many properties.
          * [Utility]
          *      - id, name, address, contact_number, type
          * [Property-Utility]
@@ -50,9 +51,13 @@ class DatabaseSeeder extends Seeder
          *          agreed_payment_mode, scanned_contract, property (belongsTo), tenant (user: belongsTo)
          * [Invoice]
          *      - id, date, contract (belongsTo), particulars (item, amount in json format), total_amount
+         *      - NOTE (12/14) - no need to have the invoice resources. Why? The most important monitored item
+         *                       is the covered date evidenced by the payment model.
          * [Transaction]
          *      - id, date, contract (belongsTo, optional), flow [in/out/transfer], account (belongsTo), 
          *          particulars (item, amount in json format), total_amount, reference_number
+         *      - NOTE (12/14) - no need to have separate transaction where invoice and payments exist. There is
+         *                       only Payments.
          * [Account]
          *      - id, name [Cash, GCash, Check, Bank, Payable, Receivable], account_number (optional), transactions (hasMany)
          * 

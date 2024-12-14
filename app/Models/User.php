@@ -55,6 +55,10 @@ class User extends Authenticatable
     }
 
     public function contracts(): HasMany {
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(Contract::class); // contracts for the tenant
+    }
+
+    public function properties(): HasMany {
+        return $this->hasMany(Property::class); // properties for the landlords
     }
 }
