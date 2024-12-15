@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->date('date_payment');
+            $table->foreignId('contract_id');
+            $table->double('amount');
+            $table->string('or_number');
+            $table->date('date_paid_start');
+            $table->date('date_paid_end');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
