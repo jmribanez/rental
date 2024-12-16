@@ -46,7 +46,7 @@
                         @endcan
                         @can('list transactions')
                         <li class="nav-item">
-                            <a href="{{url('/')}}" class="nav-link">Transactions</a>
+                            <a href="{{route('payment.index')}}" class="nav-link">Payments</a>
                         </li>
                         @endcan
                     </ul>

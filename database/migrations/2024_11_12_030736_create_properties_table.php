@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('floor_area')->nullable();
             $table->integer('land_size')->nullable();
             $table->foreignId('user_id')->nullable(); // this is the landlord
+            $table->double('amount_rental')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

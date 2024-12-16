@@ -23,6 +23,10 @@ class Contract extends Model
     }
 
     public function payments(): HasMany {
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(Payment::class); // payments made for property rentals through contracts
+    }
+
+    public function contractDateToString() {
+        return date('F j, Y',strtotime($this->date_start)) . ' to ' . date('F j, Y',strtotime($this->date_end));
     }
 }

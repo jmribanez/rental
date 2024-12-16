@@ -81,10 +81,10 @@ class PropertyController extends Controller
     {
         // include auth can
         $property = Property::find($id);
-        $available_utilities = Utility::all();
+        $payment_mode = null;
         return view('pages.properties.show')
             ->with('property', $property)
-            ->with('available_utilities', $available_utilities);
+            ->with('payment_mode',$payment_mode);
 
     }
 
@@ -174,5 +174,12 @@ class PropertyController extends Controller
         return to_route('property.edit',$id)
             ->with('status','success')
             ->with('message','Utility has been removed from ' . $property->name . '.');
+    }
+
+    public function newPayment(Property $property) {
+        $payment_mode = 'create';
+        return view('pages.properties.show')
+            ->with('property', $property)
+            ->with('payment_mode', $payment_mode);
     }
 }

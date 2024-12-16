@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->date('date_payment');
             $table->foreignId('contract_id');
+            $table->foreignId('user_id');
             $table->double('amount');
             $table->string('or_number');
-            $table->date('date_paid_start');
-            $table->date('date_paid_end');
+            $table->date('date_coverage_start');
+            $table->date('date_coverage_end');
+            $table->text('notes');
             $table->timestamps();
             $table->softDeletes();
         });

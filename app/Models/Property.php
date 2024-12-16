@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ class Property extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name','type','address_street','address_city','photo_url','bedrooms','bathrooms','floor_area','land_size','user_id'];
+    protected $fillable = ['name','type','address_street','address_city','photo_url','bedrooms','bathrooms','floor_area','land_size','user_id','amount_rental'];
 
     // function landlords (BelongsToMany) via Property_User table
     // change the landlords to BelongsTo one
@@ -28,5 +29,9 @@ class Property extends Model
 
     public function contracts(): HasMany {
         return $this->hasMany(Contract::class);
+    }
+
+    public function activeContract() {
+        return $this->contracts->where('date_start','<=',date("Y-m-d"))->where('date_end','>=',date("Y-m-d"))->first();
     }
 }

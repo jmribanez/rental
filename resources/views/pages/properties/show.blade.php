@@ -49,13 +49,26 @@
                         @endif
                     </div>
                     <hr class="my-2">
+                    <p class="m-0 mb-1 fw-bold">Landlord</p>
+                    <div class="px-3 d-flex justify-contents-start align-items-center">
+                        @if ($property->landlord != null)
+                            <p class="m-0">{{$property->landlord->fullName()}}</p>
+                        @else
+                            <p class="m-0"><em>No landlord set.</em></p>
+                        @endif
+                    </div>
+                    <hr class="my-2">
                     <p class="m-0 mb-1 fw-bold">Active Contract</p>
                     <div class="px-3">
+                        @if($property->activeContract() != null)
                         <div class="d-flex justify-content-between">
-                            <p class="m-0 fw-bold">Juan Dela Cruz</p>
-                            <p class="m-0">Php 12,300.00</p>
+                            <p class="m-0 fw-bold">{{$property->activeContract()->tenant->fullName()}}</p>
+                            <p class="m-0">Php {{$property->activeContract()->amount_rental}}</p>
                         </div>
-                        <p class="m-0 small mb-3">January 1, 2024 to December 31, 2024</p>
+                        <p class="m-0 small mb-3">{{$property->activeContract()->contractDateToString()}}</p>
+                        @else
+                        <p class="m-0"><em>No active contract</em></p>
+                        @endif
                     </div>
                     <div class="d-flex justify-content-end">
                         <a href="{{route('property.contract.index',$property->id)}}" class="btn btn-sm btn-outline-primary">Manage Contracts</a>
@@ -64,7 +77,6 @@
             </div>
         </div>
         <div class="col-md-4 mb-3">
-            <h3>Transactions</h3>
             <p class="m-0 mb-1 fw-bold">Balance</p>
             <div class="border rounded p-3 mb-3">
                 <div class="d-flex justify-content-between">
@@ -73,51 +85,6 @@
                 </div>
                 <p class="m-0 small">Last payment: November 16, 2024</p>
             </div>
-            <div class="d-flex mb-1 align-items-center">
-                <p class="m-0 me-auto fw-bold">Invoice</p>
-                <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a>
-                <a href="#" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
-            </div>
-            <div class="list-group list-group-flush mb-3">
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">November 1, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">October 1, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">November 1, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">October 1, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">November 1, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">October 1, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
             <div class="d-flex mb-1 align-items-center">
                 <p class="m-0 me-auto fw-bold">Payments</p>
                 <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a>
@@ -160,6 +127,24 @@
                         <p class="m-0">Php 12,300.00</p>
                     </div>
                 </a>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="border rounded p-3">
+                @switch($payment_mode)
+                    @case('create')
+                        <x-payment.create :contract="$property->activeContract()" />
+                        @break
+                    @case('show')
+                        
+                        @break
+                    @case('edit')
+                        
+                        @break
+                    @default
+                        <x-payment.noselection />
+                        @break
+                @endswitch
             </div>
         </div>
     </div>

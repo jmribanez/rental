@@ -61,4 +61,12 @@ class User extends Authenticatable
     public function properties(): HasMany {
         return $this->hasMany(Property::class); // properties for the landlords
     }
+
+    public function payments(): HasMany {
+        return $this->hasMany(Payment::class); // payments received by staff
+    }
+
+    public function fullName() {
+        return $this->name_first . ' ' . $this->name_last;
+    }
 }
