@@ -27,6 +27,7 @@
                 <label for="txtdatecoverageend" class="form-label">Covered until<span class="text-danger">*</span></label>
                 <input type="date" name="date_coverage_end" id="txtdatecoverageend" class="form-control" required>
             </div>
+            <div class="col mb-2"></div>
         </div>
     </form>
 </div>
