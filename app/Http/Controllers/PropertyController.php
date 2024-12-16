@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Models\User;
 use App\Models\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +35,11 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view('pages.properties.create');
+        $landlords = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Landlord');
+        }, 1)->get();
+        return view('pages.properties.create')
+            ->with('landlords', $landlords);
     }
 
     /**
@@ -57,6 +62,7 @@ class PropertyController extends Controller
         $property->bathrooms = $request->bathrooms;
         $property->floor_area = $request->floor_area;
         $property->land_size = $request->land_size;
+        $property->user_id = $request->landlord;
         if($request->hasFile('property_photo')) {
             $allowedFileExtension = ['jpg','jpeg','png'];
             $file = $request->file('property_photo');
@@ -95,9 +101,13 @@ class PropertyController extends Controller
     {
         $property = Property::find($id);
         $available_utilities = Utility::all();
+        $landlords = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Landlord');
+        }, 1)->get();
         return view('pages.properties.edit')
             ->with('property', $property)
-            ->with('available_utilities', $available_utilities);
+            ->with('available_utilities', $available_utilities)
+            ->with('landlords', $landlords);
     }
 
     /**
@@ -120,6 +130,7 @@ class PropertyController extends Controller
         $property->bathrooms = $request->bathrooms;
         $property->floor_area = $request->floor_area;
         $property->land_size = $request->land_size;
+        $property->user_id = $request->landlord;
         if($request->hasFile('property_photo')) {
             $allowedFileExtension = ['jpg','jpeg','png'];
             $file = $request->file('property_photo');
@@ -178,6 +189,11 @@ class PropertyController extends Controller
 
     public function newPayment(Property $property) {
         $payment_mode = 'create';
+        if($property->activeContract() == null) {
+            return to_route('property.show', $property->id)
+                ->with('status', 'danger')
+                ->with('message', 'There is no active contract to make a payment for.');
+        }
         return view('pages.properties.show')
             ->with('property', $property)
             ->with('payment_mode', $payment_mode);

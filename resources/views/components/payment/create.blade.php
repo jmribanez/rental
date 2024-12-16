@@ -6,7 +6,7 @@
         <div class="px-3">
             <div class="d-flex justify-content-between">
                 <p class="m-0 fw-bold">{{$contract->tenant->fullName()}}</p>
-                <p class="m-0">Php {{$contract->amount_rental}}</p>
+                <p class="m-0">Php {{$contract->amountToString()}}</p>
             </div>
             <p class="m-0 small mb-3">{{$contract->contractDateToString()}}</p>
         </div>
@@ -27,7 +27,21 @@
                 <label for="txtdatecoverageend" class="form-label">Covered until<span class="text-danger">*</span></label>
                 <input type="date" name="date_coverage_end" id="txtdatecoverageend" class="form-control" required>
             </div>
-            <div class="col mb-2"></div>
+            <div class="col mb-2">
+                <label for="txtamount" class="form-label">Amount<span class="text-danger">*</span></label>
+                <input type="number" name="amount" id="txtamount" class="form-control" min="0" required>
+            </div>
+            <div class="col mb-2">
+                <label for="txtornumber" class="form-label">OR Number<span class="text-danger">*</span></label>
+                <input type="text" name="or_number" id="txtornumber" class="form-control" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="txtnotes" class="form-label">Notes</label>
+            <input type="text" name="notes" id="txtnotes" class="form-control">
+        </div>
+        <div class="mb-3 d-flex justify-content-end">
+            <input type="submit" value="Save" class="btn btn-sm btn-primary">
         </div>
     </form>
 </div>

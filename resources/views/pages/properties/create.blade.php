@@ -13,6 +13,14 @@
                         <p class="m-0">Property photo</p>
                         <input type="file" name="property_photo" id="txt_property_photo" class="form-control">
                     </div>
+                    <hr class="my-2">
+                    <p class="fw-bold m-0 me-auto">Landlord</p>
+                    <select name="landlord" id="sellandlord" class="form-select">
+                        <option disabled selected>Choose the landlord</option>
+                        @foreach($landlords as $ll)
+                        <option value="{{$ll->id}}">{{$ll->fullName()}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>

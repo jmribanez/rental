@@ -31,6 +31,14 @@
                     @else
                         <p class="m-0"><em>No utilities added.</em></p>
                     @endif
+                    <hr class="my-2">
+                    <p class="fw-bold m-0 me-auto">Landlord</p>
+                    <select name="landlord" id="sellandlord" class="form-select">
+                        <option disabled {{($property->user_id==null)?'selected':''}}>Choose the landlord</option>
+                        @foreach($landlords as $ll)
+                        <option value="{{$ll->id}}" {{($ll->id==$property->user_id)?'selected':''}}>{{$ll->fullName()}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>
@@ -80,6 +88,7 @@
                         <option value="Santa Rita"></option>
                         <option value="Santo Tomas"></option>
                         <option value="Sasmuan"></option>
+                        <option value="Urdaneta City"></option>
                     </datalist>
                 </div>
             </div>

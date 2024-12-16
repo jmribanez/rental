@@ -29,4 +29,8 @@ class Contract extends Model
     public function contractDateToString() {
         return date('F j, Y',strtotime($this->date_start)) . ' to ' . date('F j, Y',strtotime($this->date_end));
     }
+
+    public function amountToString() {
+        return number_format($this->amount_rental,2);
+    }
 }
