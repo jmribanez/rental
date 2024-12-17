@@ -63,6 +63,7 @@ class PropertyController extends Controller
         $property->floor_area = $request->floor_area;
         $property->land_size = $request->land_size;
         $property->user_id = $request->landlord;
+        $property->amount_rental = $request->amount_rental;
         if($request->hasFile('property_photo')) {
             $allowedFileExtension = ['jpg','jpeg','png'];
             $file = $request->file('property_photo');
@@ -131,6 +132,7 @@ class PropertyController extends Controller
         $property->floor_area = $request->floor_area;
         $property->land_size = $request->land_size;
         $property->user_id = $request->landlord;
+        $property->amount_rental = $request->amount_rental;
         if($request->hasFile('property_photo')) {
             $allowedFileExtension = ['jpg','jpeg','png'];
             $file = $request->file('property_photo');

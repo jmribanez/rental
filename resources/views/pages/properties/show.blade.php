@@ -19,46 +19,34 @@
             </div>
             <div class="d-flex mb-1 align-items-center">
                 <p class="m-0 me-auto fw-bold">Payments</p>
-                <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a>
-                <a href="#" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
+                {{-- <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a> --}}
+                <a href="{{route('property.newPayment',$property->id)}}" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
             </div>
             <div class="list-group list-group-flush mb-3">
+                @if(count($property->getPayments())>0)
+                {{-- <div class="list-group-item">
+                    <div class="d-flex justify-content-between small fw-bold">
+                        <p class="m-0">DATE PAID</p>
+                        <p class="m-0">AMOUNT</p>
+                    </div>
+                </div> --}}
+                @foreach ($property->getPayments() as $payment)
                 <a href="#" class="list-group-item list-group-item-action">
                     <div class="d-flex justify-content-between">
-                        <p class="m-0">November 16, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
+                        <p class="m-0">{{$payment->getDatePayment()}}</p>
+                        <p class="m-0">Php {{$payment->amountToString()}}</p>
                     </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
                     <div class="d-flex justify-content-between">
-                        <p class="m-0">October 13, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
+                        <p class="small m-0">{{$payment->or_number}}</p>
+                        <p class="small m-0">{{$payment->getCoverageDate()}}</p>
                     </div>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">November 16, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
+                @endforeach
+                @else
+                    <div class="list-group-item">
+                        <em>No payments recorded for this property</em>
                     </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">October 13, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">November 16, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex justify-content-between">
-                        <p class="m-0">October 13, 2024</p>
-                        <p class="m-0">Php 12,300.00</p>
-                    </div>
-                </a>
+                @endif
             </div>
         </div>
         <div class="col-md-4 mb-3">

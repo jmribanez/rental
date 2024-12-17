@@ -19,4 +19,16 @@ class Payment extends Model
     public function receiver(): BelongsTo {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function getDatePayment() {
+        return date('M j, Y',strtotime($this->date_payment));
+    }
+
+    public function getCoverageDate() {
+        return date('F j, Y',strtotime($this->date_coverage_start)) . ' to ' . date('F j, Y',strtotime($this->date_coverage_end));
+    }
+
+    public function amountToString() {
+        return number_format($this->amount,2);
+    }
 }

@@ -34,4 +34,18 @@ class Property extends Model
     public function activeContract() {
         return $this->contracts->where('date_start','<=',date("Y-m-d"))->where('date_end','>=',date("Y-m-d"))->first();
     }
+
+    public function amountrentalToString() {
+        return number_format($this->amount_rental,2);
+    }
+
+    public function getPayments() {
+        $payments = array();
+        foreach($this->contracts as $c) {
+            foreach($c->payments as $p) {
+                array_push($payments, $p);
+            }
+        }
+        return $payments;
+    }
 }

@@ -5,7 +5,17 @@
             <p class="card-text mb-0">{{$property->address_street}}</p>
             <p class="card-text">{{$property->address_city}}</p>
         </div>
-        <div class="d-flex justify-content-between mb-2">
+        <div class="row">
+            <div class="col-6 mb-2">
+                <p class="m-0">{{($property->landlord!=null)?$property->landlord->fullName():'--'}}</p>
+                <p class="small m-0">Landlord</p>
+            </div>
+            <div class="col-6 mb-2 text-end">
+                <p class="m-0">Php {{($property->amount_rental!=null)?$property->amountrentalToString():'--'}}</p>
+                <p class="small m-0">Monthly rent</p>
+            </div>
+        </div>
+        {{-- <div class="d-flex justify-content-between mb-2">
             <div>
                 <p class="m-0">{{$property->bedrooms??'--'}}</p>
                 <p class="small m-0">Bedrooms</p>
@@ -22,7 +32,8 @@
                 <p class="m-0">{{$property->land_size??'--'}}</p>
                 <p class="small m-0">Land size</p>
             </div>
-        </div>
+        </div> --}}
+        <hr class="my-2">
         <div class="mb-1">
             <div class="d-flex justify-content-start align-items-center">
                 <p class="fw-bold m-0">Utilities</p>
@@ -41,23 +52,13 @@
             @endif
         </div>
         <hr class="my-2">
-        <p class="m-0 mb-1 fw-bold">Landlord</p>
-        <div class="px-3 d-flex justify-contents-start align-items-center">
-            @if ($property->landlord != null)
-                <p class="m-0">{{$property->landlord->fullName()}}</p>
-            @else
-                <p class="m-0"><em>No landlord set.</em></p>
-            @endif
-        </div>
-        <hr class="my-2">
-        <p class="m-0 mb-1 fw-bold">Active Contract</p>
-        <div class="px-3">
+        <p class="m-0 fw-bold">Active Contract</p>
+        <div class="mb-3">
             @if($property->activeContract() != null)
             <div class="d-flex justify-content-between">
-                <p class="m-0 fw-bold">{{$property->activeContract()->tenant->fullName()}}</p>
-                <p class="m-0">Php {{$property->activeContract()->amountToString()}}</p>
+                <p class="m-0">{{$property->activeContract()->tenant->fullName()}}</p>
+                <p class="m-0">{{$property->activeContract()->contractMidDateToString()}}</p>
             </div>
-            <p class="m-0 small mb-3">{{$property->activeContract()->contractDateToString()}}</p>
             @else
             <p class="m-0"><em>No active contract</em></p>
             @endif

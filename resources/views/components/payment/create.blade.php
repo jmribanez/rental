@@ -6,7 +6,7 @@
         <div class="px-3">
             <div class="d-flex justify-content-between">
                 <p class="m-0 fw-bold">{{$contract->tenant->fullName()}}</p>
-                <p class="m-0">Php {{$contract->amountToString()}}</p>
+                <p class="m-0">Php {{$contract->amountrentalToString()}}</p>
             </div>
             <p class="m-0 small mb-3">{{$contract->contractDateToString()}}</p>
         </div>

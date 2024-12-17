@@ -27,9 +27,13 @@
         <div class="col-md-8 mb-3">
             <h3 class="m-0 mb-2">Details</h3>
             <div class="row">
-                <div class="col-md-8 mb-2">
+                <div class="col-md-4 mb-2">
                     <label for="txt_property_name" class="form-label">Property name<span class="text-danger">*</span></label>
                     <input type="text" name="property_name" id="txt_property_name" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="txtamountrental" class="form-label">Monthly rent<span class="text-danger">*</span></label>
+                    <input type="number" name="amount_rental" id="txtamountrental" class="form-control" required>
                 </div>
                 <div class="col-md-4 mb-2">
                     <label for="txt_property_type" class="form-label">Type<span class="text-danger">*</span></label>
