@@ -37,4 +37,10 @@ class Contract extends Model
     public function amountrentalToString() {
         return number_format($this->amount_rental,2);
     }
+
+    public function lastPayment() {
+        if($this->payments->count() == 0)
+            return null;
+        return $this->payments->sortByDesc('date_payment')->first();
+    }
 }

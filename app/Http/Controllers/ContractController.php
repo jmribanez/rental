@@ -131,6 +131,9 @@ class ContractController extends Controller
             }
         }
         $contract->update();
+        return to_route('contract.show',$contract->id)
+            ->with('status', 'success')
+            ->with('message', 'Contract updated in ' . $contract->property->name . ' for ' . $contract->tenant->name_first . ' ' . $contract->tenant->name_last .'.');
     }
 
     /**

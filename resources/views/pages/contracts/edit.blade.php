@@ -48,10 +48,11 @@
         <h3 class="m-0 mb-3">Edit Contract</h3>
         <form action="{{route('contract.update',$contract->id)}}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('PATCH')
             <div class="row">
                 <div class="col-md-6 mb-2">
                     <label for="sel_tenant" class="form-label">Tenant<span class="text-danger">*</span></label>
-                    <select name="tenant" id="sel_tenant" class="form-select" disabled>
+                    <select name="tenant" id="sel_tenant" class="form-select">
                         @foreach ($tenants as $tenant)
                         <option value="{{$tenant->id}}" {{($contract->user_id==$tenant->id)?'selected':''}}>{{$tenant->name_first . ' ' . $tenant->name_last}}</option>
                         @endforeach

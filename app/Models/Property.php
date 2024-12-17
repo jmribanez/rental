@@ -35,6 +35,12 @@ class Property extends Model
         return $this->contracts->where('date_start','<=',date("Y-m-d"))->where('date_end','>=',date("Y-m-d"))->first();
     }
 
+    public function lastContract() {
+        if($this->contracts->count() == 0)
+            return null;
+        return $this->contracts->sortByDesc('date_end')->first();
+    }
+
     public function amountrentalToString() {
         return number_format($this->amount_rental,2);
     }

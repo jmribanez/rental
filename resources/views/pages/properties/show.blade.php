@@ -9,14 +9,16 @@
             <x-property.showcard :property="$property" />
         </div>
         <div class="col-md-4 mb-3">
-            <p class="m-0 mb-1 fw-bold">Balance</p>
-            <div class="border rounded p-3 mb-3">
-                <div class="d-flex justify-content-between">
-                    <p class="m-0 fw-bold">Amount</p>
-                    <p class="m-0"><em>Up-to-date</em></p>
-                </div>
-                <p class="m-0 small">Last payment: November 16, 2024</p>
-            </div>
+            <p class="m-0 mb-1 fw-bold">Contract and Balance</p>
+            @if($property->activeContract() != null)
+                <x-contract.showcard :contract="$property->activeContract()" status="Active" />
+            @else
+                @if ($property->lastContract() != null)
+                    <x-contract.showcard :contract="$property->lastContract()" status="Last" />
+                @else
+                    <x-contract.nocontract />
+                @endif
+            @endif
             <div class="d-flex mb-1 align-items-center">
                 <p class="m-0 me-auto fw-bold">Payments</p>
                 {{-- <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a> --}}
