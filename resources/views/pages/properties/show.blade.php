@@ -25,14 +25,8 @@
             </div>
             <div class="list-group list-group-flush mb-3">
                 @if(count($property->getPayments())>0)
-                {{-- <div class="list-group-item">
-                    <div class="d-flex justify-content-between small fw-bold">
-                        <p class="m-0">DATE PAID</p>
-                        <p class="m-0">AMOUNT</p>
-                    </div>
-                </div> --}}
                 @foreach ($property->getPayments() as $payment)
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="{{route('payment.show',$payment->id)}}" class="list-group-item list-group-item-action">
                     <div class="d-flex justify-content-between">
                         <p class="m-0">{{$payment->getDatePayment()}}</p>
                         <p class="m-0">Php {{$payment->amountToString()}}</p>

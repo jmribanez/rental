@@ -16,6 +16,17 @@
         @break
     @endswitch
     <hr class="my-2">
+    <div class="row">
+        <div class="col mb-2">
+            <p class="m-0 small">Contract Date</p>
+            <p class="m-0">{{date('F j, Y',strtotime($contract->date_contract))}}</p>
+        </div>
+        <div class="col mb-2">
+            <p class="m-0 small">Security Deposit</p>
+            <p class="m-0">Php {{number_format($contract->amount_security_deposit, 2)}}</p>
+        </div>
+    </div>
+    <hr class="my-2">
     <div class="mb-3">
         <div class="d-flex justify-content-between">
             <p class="m-0 fw-bold">Balance</p>
@@ -26,9 +37,10 @@
         <p class="m-0 small">Covers: {{$contract->lastPayment()->getCoverageDate()}}</p>
         @else
         <p class="m-0 small">No payment made yet.</p>
-        @endif
+        @endif        
     </div>
-    <div class="d-flex justify-content-end">
-        <a href="{{route('contract.show',$contract->id)}}" class="btn btn-sm btn-outline-secondary">Details</a>
+    <div class="d-flex">
+        <a href="{{route('property.contract.index',$contract->property->id)}}" class="btn btn-sm btn-outline-secondary me-auto">Cancel</a>
+        <a href="{{route('contract.edit',$contract->id)}}" class="btn btn-sm btn-outline-secondary">Edit</a>
     </div>
 </div>

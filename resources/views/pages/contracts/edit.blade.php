@@ -3,7 +3,7 @@
 <h1 class="mb-3"><a href="{{route('property.show',$contract->property->id)}}" class="text-dark text-decoration-none">{{$contract->property->name}}</a></h1>
 <div class="row">
     <div class="col-md-4 mb-3">
-        <x-property.showcard :property="$property" />
+        <x-property.showcard :property="$contract->property" />
     </div>
     <div class="col-md-8 mb-3">
         <h3 class="m-0 mb-3">Edit Contract</h3>

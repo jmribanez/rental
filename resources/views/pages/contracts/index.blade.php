@@ -16,8 +16,8 @@
                 <a href="{{route('contract.show',$contract->id)}}" class="list-group-item list-group item-action">
                     <div class="row">
                         <div class="col">{{$contract->tenant->name_first . ' ' . $contract->tenant->name_last}}</div>
-                        <div class="col d-none d-lg-block">{{$contract->date_start}} to {{$contract->date_end}}</div>
-                        <div class="col-4 col-lg-3 text-end">Php {{$contract->amount_rental}}</div>
+                        <div class="col d-none d-lg-block">{{$contract->contractMidDateToString()}}</div>
+                        <div class="col-4 col-lg-3 text-end">Php {{$contract->amountrentalToString()}}</div>
                     </div>
                 </a>
                 @endforeach
