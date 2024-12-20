@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('or_number');
             $table->date('date_coverage_start');
             $table->date('date_coverage_end');
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

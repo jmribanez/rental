@@ -12,8 +12,14 @@
                     <img src="{{($property->photo_url != null)?asset('storage/property_photos/'.$property->photo_url):asset('storage/property_photos/propertynophoto.jpg')}}" style="height: 100px; object-fit:cover;" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><a href="{{route('property.show',$property->id)}}" class="stretched-link text-decoration-none text-dark">{{$property->name}}</a></h5>
-                        <p class="card-text mb-0">{{$property->address_street}}</p>
-                        <p class="card-text">{{$property->address_city}}</p>
+                        <p class="card-text m-0">{{$property->address_street}}</p>
+                        <p class="card-text m-0">{{$property->address_city}}</p>
+                        <hr class="my-1">
+                        @if($property->activeContract() != null)
+                        <p class="m-0 small"><i class="fa-solid fa-circle-check text-success"></i> {{$property->activeContract()->tenant->fullName()}}</p>
+                        @else
+                        <p class="m-0 small text-secondary"><i class="fa-regular fa-circle"></i> Unoccupied</p>
+                        @endif
                     </div>
                 </div>
             </div>

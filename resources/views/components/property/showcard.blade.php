@@ -64,6 +64,9 @@
             @endif
         </div>
         <div class="d-flex justify-content-end">
+            @can('edit property')
+            <a href="{{route('property.edit',$property->id)}}" class="btn btn-sm btn-outline-secondary me-auto">Edit</a>
+            @endcan
             <a href="{{route('property.contract.index',$property->id)}}" class="btn btn-sm btn-outline-primary">Manage Contracts</a>
         </div>
     </div>

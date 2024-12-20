@@ -9,7 +9,7 @@
         <p class="m-0 small"><i class="fa-solid fa-circle-chevron-left text-warning"></i> Last Contract</p>
         @break
         @default
-        <p class="m-0 small"><i class="fa-solid fa-circle-check text-secondary"></i> Inactive</p>
+        <p class="m-0 small"><i class="fa-solid fa-circle text-secondary"></i> Inactive</p>
         @break
     @endswitch
     <hr class="my-2">
@@ -17,6 +17,10 @@
         <p class="m-0 fw-bold">Balance</p>
         <p class="m-0"><em>Up-to-date</em></p>
     </div>
+    @if($contract->lastPayment() != null)
     <p class="m-0 small">Last payment: {{$contract->lastPayment()->getDatePayment()}}</p>
     <p class="m-0 small">Covers: {{$contract->lastPayment()->getCoverageDate()}}</p>
+    @else
+    <p class="m-0 small">No payment made yet.</p>
+    @endif
 </div>

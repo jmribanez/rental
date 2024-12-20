@@ -3,46 +3,7 @@
 <h1 class="mb-3"><a href="{{route('property.show',$property->id)}}" class="text-dark text-decoration-none">{{$property->name}}</a></h1>
 <div class="row">
     <div class="col-md-4 mb-3">
-        <div class="card">
-            <img src="{{($property->photo_url != null)?asset('storage/property_photos/'.$property->photo_url):asset('storage/property_photos/propertynophoto.jpg')}}" style="height: 150px; object-fit:cover;" class="card-img-top" alt="...">
-            <div class="card-body">
-                <div class="mb-2">
-                    <p class="card-text mb-0">{{$property->address_street}}</p>
-                    <p class="card-text">{{$property->address_city}}</p>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <div>
-                        <p class="m-0">{{$property->bedrooms??'--'}}</p>
-                        <p class="small m-0">Bedrooms</p>
-                    </div>
-                    <div>
-                        <p class="m-0">{{$property->bathrooms??'--'}}</p>
-                        <p class="small m-0">Bathrooms</p>
-                    </div>
-                    <div>
-                        <p class="m-0">{{$property->floor_area??'--'}}</p>
-                        <p class="small m-0">Floor area</p>
-                    </div>
-                    <div>
-                        <p class="m-0">{{$property->land_size??'--'}}</p>
-                        <p class="small m-0">Land size</p>
-                    </div>
-                </div>
-                <div class="mb-2">
-                    <p class="fw-bold m-0">Utilities</p>
-                    @if(count($property->utilities)>0)
-                    @foreach ($property->utilities as $pu)
-                    <div class="d-flex align-items-center mb-1">
-                        <span><a href="{{route('utility.show',$pu->id)}}" class="text-decoration-none">{{$pu->name}}</a></span>
-                        <span class="ms-auto">{{$pu->pivot->account_number}}</span>
-                    </div>
-                    @endforeach
-                    @else
-                    <p class="m-0"><em>No utilities added.</em></p>
-                    @endif
-                </div>
-            </div>
-        </div>
+        <x-property.showcard :property="$property" />
     </div>
     <div class="col-md-8 mb-3">
         <h3 class="m-0 mb-3">New Contract</h3>

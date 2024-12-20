@@ -2,7 +2,6 @@
 @section('content')
     <div class="d-flex align-items-center mb-3">
         <h1 class="mb-0 me-auto">{{$property->name}}</h1>
-        <a href="{{route('property.edit',$property->id)}}" class="btn btn-outline-secondary">Edit</a>
     </div>
     <div class="row">
         <div class="col-md-4 mb-3">

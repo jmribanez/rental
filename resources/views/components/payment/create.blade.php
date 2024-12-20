@@ -9,6 +9,7 @@
                 <p class="m-0">Php {{$contract->amountrentalToString()}}</p>
             </div>
             <p class="m-0 small mb-3">{{$contract->contractDateToString()}}</p>
+            <input type="hidden" name="contract_id" value="{{$contract->id}}">
         </div>
         <div class="row row-cols-2">
             <div class="col mb-2">
@@ -40,7 +41,7 @@
             <label for="txtnotes" class="form-label">Notes</label>
             <input type="text" name="notes" id="txtnotes" class="form-control">
         </div>
-        <div class="mb-3 d-flex justify-content-end">
+        <div class="d-flex justify-content-end">
             <input type="submit" value="Save" class="btn btn-sm btn-primary">
         </div>
     </form>
