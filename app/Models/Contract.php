@@ -43,4 +43,10 @@ class Contract extends Model
             return null;
         return $this->payments->sortByDesc('date_payment')->first();
     }
+
+    public function getBalance() {
+        $months_passed = date_diff(date_create($this->date_start), date_create(date("Y-m-d")));
+        $balance = ($this->amount_rental * (int)$months_passed->format("%m")) - $this->payments->sum("amount");
+        return number_format($balance,2);
+    }
 }

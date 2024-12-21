@@ -19,7 +19,7 @@
     <div class="mb-3">
         <div class="d-flex justify-content-between">
             <p class="m-0 fw-bold">Balance</p>
-            <p class="m-0"><em>Up-to-date</em></p>
+            <p class="m-0">{{$contract->getBalance()}}</p>
         </div>
         @if($contract->lastPayment() != null)
         <p class="m-0 small">Last payment: {{$contract->lastPayment()->getDatePayment()}}</p>
