@@ -104,7 +104,24 @@ class PaymentController extends Controller
      */
     public function update(Request $request, Payment $payment)
     {
-        //
+        $validated = $request->validate([
+            'date_payment' => 'required',
+            'amount' => 'required',
+            'or_number' => 'required',
+            'date_coverage_start' => 'required',
+            'date_coverage_end' => 'required',
+        ]);
+
+        $payment->date_payment = $request->date_payment;
+        $payment->amount = $request->amount;
+        $payment->or_number = $request->or_number;
+        $payment->date_coverage_start = $request->date_coverage_start;
+        $payment->date_coverage_end = $request->date_coverage_end;
+        $payment->notes = $payment->notes;
+        $payment->update();
+        return to_route('property.show',$payment->contract->property->id)
+            ->with('status', 'success')
+            ->with('message', 'Payment updated for the contract of ' . $payment->contract->tenant->fullName() . ".");
     }
 
     /**
