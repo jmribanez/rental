@@ -41,13 +41,13 @@ class UserController extends Controller
     public function create(Request $request)
     {
         // include auth cans
-        $isTenant = $request->query('isTenant',null);
+        $t = $request->query('t',null);
         $pagefn = 'create';
         $users = User::all();
         return view('pages.users')
             ->with('users', $users)
             ->with('pagefn', $pagefn)
-            ->with('isTenant',$isTenant??false);
+            ->with('t',$t);
     }
 
     /**

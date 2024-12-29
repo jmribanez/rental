@@ -23,9 +23,14 @@ class PropertyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $properties = Property::all();
+        if($request->q == null) {
+            $properties = Property::all();
+        } else {
+            $sq = $request->q;
+            $properties = Property::where('name','like',$sq.'%')->orWhere('address_street','like',$sq.'%')->orWhere('address_city','like',$sq.'%')->get();
+        }
         return view('pages.properties.index')
             ->with('properties', $properties);
     }

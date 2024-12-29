@@ -15,12 +15,21 @@
                     </div>
                     <hr class="my-2">
                     <p class="fw-bold m-0 me-auto">Landlord</p>
-                    <select name="landlord" id="sellandlord" class="form-select">
+                    <select name="landlord" id="sellandlord" class="form-select" onchange="watchselect()">
                         <option disabled selected>Choose the landlord</option>
                         @foreach($landlords as $ll)
                         <option value="{{$ll->id}}">{{$ll->fullName()}}</option>
                         @endforeach
+                        <option value="newlandlord">New landlord</option>
                     </select>
+                    <script>
+                        function watchselect() {
+                            var selLandlord = document.getElementById('sellandlord').value;
+                            if(selLandlord == "newlandlord") {
+                                window.location.href = "{{route('user.create',['t'=>'l'])}}";
+                            }
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -36,12 +45,16 @@
                     <input type="number" name="amount_rental" id="txtamountrental" class="form-control" required>
                 </div>
                 <div class="col-md-4 mb-2">
-                    <label for="txt_property_type" class="form-label">Type<span class="text-danger">*</span></label>
+                    <label for="sel_property_type" class="form-label">Type<span class="text-danger">*</span></label>
                     <select name="property_type" id="sel_property_type" class="form-select" required>
                         <option disabled selected>Choose type</option>
+                        <option value="Studio Type">Studio Type</option>
+                        <option value="One Bedroom">One Bedroom</option>
+                        <option value="Two Bedroom">Two Bedroom</option>
+                        <option value="Three Bedroom">Three Bedroom</option>
                         <option value="Apartment">Apartment</option>
-                        <option value="Duplex">Duplex</option>
-                        <option value="Single">Single</option>
+                        <option value="Building">Building</option>
+                        <option value="Lot">Lot</option>
                     </select>
                 </div>
             </div>
@@ -81,19 +94,19 @@
             <div class="row row-cols-2 row-cols-md-4">
                 <div class="col mb-2">
                     <label for="txt_bedrooms" class="form-label">Bedrooms</label>
-                    <input type="number" name="bedrooms" id="txt_bedrooms" class="form-control" min="1">
+                    <input type="number" name="bedrooms" id="txt_bedrooms" class="form-control" min="0">
                 </div>
                 <div class="col mb-2">
                     <label for="txt_bathrooms" class="form-label">Bathrooms</label>
-                    <input type="number" name="bathrooms" id="txt_bathrooms" class="form-control" min="1">
+                    <input type="number" name="bathrooms" id="txt_bathrooms" class="form-control" min="0">
                 </div>
                 <div class="col mb-2">
                     <label for="txt_floor_area" class="form-label">Floor area</label>
-                    <input type="number" name="floor_area" id="txt_floor_area" class="form-control" min="1">
+                    <input type="number" name="floor_area" id="txt_floor_area" class="form-control" min="0">
                 </div>
                 <div class="col mb-3">
                     <label for="txt_land_size" class="form-label">Land size</label>
-                    <input type="number" name="land_size" id="txt_land_size" class="form-control" min="1">
+                    <input type="number" name="land_size" id="txt_land_size" class="form-control" min="0">
                 </div>
             </div>
             <div class="d-flex justify-content-end">

@@ -22,9 +22,9 @@
                 <select name="role" id="sel_role" class="form-select">
                     <option disabled {{(old('role')==null)?'selected':''}}>Choose a role</option>
                     <option value="Administrator" {{(old('role')=='Administrator')?'selected':''}}>Administrator</option>
-                    <option value="Landlord" {{(old('role')=='Landlord')?'selected':''}}>Landlord</option>
+                    <option value="Landlord" {{(old('role')=='Landlord' || $t=='l')?'selected':''}}>Landlord</option>
                     <option value="Staff" {{(old('role')=='Staff')?'selected':''}}>Staff</option>
-                    <option value="Tenant" {{(old('role')=='Tenant' || $isTenant)?'selected':''}}>Tenant</option>
+                    <option value="Tenant" {{(old('role')=='Tenant' || $t=='t')?'selected':''}}>Tenant</option>
                 </select>
             </div>
         </div>

@@ -3,6 +3,12 @@
     <div class="d-flex align-items-center mb-3">
         <h1 class="mb-0 me-auto">Properties</h1>
         <a href="{{route('property.create')}}" class="btn btn-outline-primary">New</a>
+        <form action="{{route('property.index')}}" method="get" class="mb-0 ms-3">
+            <div class="input-group">
+                <input type="text" name="q" id="txtq" class="form-control" required>
+                <input type="submit" value="Search" class="btn btn-outline-secondary">
+            </div>
+        </form>
     </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         @if(count($properties)>0)

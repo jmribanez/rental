@@ -96,6 +96,7 @@ class DatabaseSeeder extends Seeder
 
         // Property permissions
         Permission::create(['name' => 'list properties'])->syncRoles([$rAd, $rLa, $rCa]);
+        Permission::create(['name' => 'list all properties'])->syncRoles([$rAd]);
         Permission::create(['name' => 'create property'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'edit property'])->syncRoles([$rAd, $rLa]);
         Permission::create(['name' => 'view property'])->syncRoles([$rAd, $rLa, $rCa]);
