@@ -36,9 +36,15 @@ class Property extends Model
     }
 
     public function lastContract() {
-        if($this->contracts->count() == 0)
-            return null;
-        return $this->contracts->sortByDesc('date_end')->first();
+        // if($this->contracts->count() == 0)
+        //     return null;
+        // return $this->contracts->sortByDesc('date_end')->first();
+        // get the first contract before that active contract's start date
+        $lastStart = date("Y-m-d");
+        if($this->activeContract() != null) {
+            $lastStart = $this->activeContract()->date_start;
+        }
+        return $this->contracts->where('date_end','<',$lastStart)->first();
     }
 
     public function amountrentalToString() {

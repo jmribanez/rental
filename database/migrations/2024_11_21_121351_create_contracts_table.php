@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('date_contract');
             $table->date('date_start');
             $table->date('date_end');
-            $table->integer('invoice_day');
+            // $table->integer('invoice_day')->nullable();
             $table->double('amount_security_deposit');
             $table->double('amount_rental');
             $table->string('agreed_payment_mode')->nullable();

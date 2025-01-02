@@ -45,7 +45,7 @@ class ContractController extends Controller
             'date_end' => 'required',
             'amount_rental' => 'required',
             'amount_security_deposit' => 'required',
-            'invoice_day' => 'required',
+            // 'invoice_day' => 'required',
         ]);
         $contract = new Contract;
         $contract->property_id = $property->id;
@@ -53,7 +53,7 @@ class ContractController extends Controller
         $contract->date_contract = $request->date_contract;
         $contract->date_start = $request->date_start;
         $contract->date_end = $request->date_end;
-        $contract->invoice_day = $request->invoice_day;
+        // $contract->invoice_day = $request->invoice_day;
         $contract->amount_security_deposit = $request->amount_security_deposit;
         $contract->amount_rental = $request->amount_rental;
         $contract->agreed_payment_mode = $request->agreed_payment_mode;
@@ -79,8 +79,17 @@ class ContractController extends Controller
      */
     public function show(Contract $contract)
     {
+        $status = '';
+        if($contract->property->activeContract() != null && $contract->property->activeContract()->id == $contract->id) {
+            $status = 'Active';
+        } else if ($contract->property->lastContract() != null && $contract->property->lastContract()->id == $contract->id) {
+            $status = 'Last';
+        } else {
+            $status = 'Old';
+        }
         return view('pages.contracts.show')
-            ->with('contract',$contract);
+            ->with('contract',$contract)
+            ->with('status', $status);
     }
 
     /**
@@ -108,13 +117,13 @@ class ContractController extends Controller
             'date_end' => 'required',
             'amount_rental' => 'required',
             'amount_security_deposit' => 'required',
-            'invoice_day' => 'required',
+            // 'invoice_day' => 'required',
         ]);
         // $contract->user_id = $request->tenant;
         $contract->date_contract = $request->date_contract;
         $contract->date_start = $request->date_start;
         $contract->date_end = $request->date_end;
-        $contract->invoice_day = $request->invoice_day;
+        // $contract->invoice_day = $request->invoice_day;
         $contract->amount_security_deposit = $request->amount_security_deposit;
         $contract->amount_rental = $request->amount_rental;
         $contract->agreed_payment_mode = $request->agreed_payment_mode;

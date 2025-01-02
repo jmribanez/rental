@@ -22,6 +22,28 @@
             <p class="m-0">{{$selectedPayment->getCoverageDate()}}</p>
         </div>
         <div class="col mb-2">
+            <p class="m-0 small">Payment Mode</p>
+            <p class="m-0">{{$selectedPayment->payment_mode}}</p>
+        </div>
+        @if($selectedPayment->check_number != null)
+        <div class="col mb-2">
+            <p class="m-0 small">Reference number</p>
+            <p class="m-0">{{$selectedPayment->check_number}}</p>
+        </div>
+        @endif
+        @if($selectedPayment->check_date != null)
+        <div class="col mb-2">
+            <p class="m-0 small">Reference date</p>
+            <p class="m-0">{{$selectedPayment->check_date}}</p>
+        </div>
+        @endif
+        @if($selectedPayment->check_bank != null)
+        <div class="col mb-2">
+            <p class="m-0 small">Reference bank</p>
+            <p class="m-0">{{$selectedPayment->check_bank}}</p>
+        </div>
+        @endif
+        <div class="col mb-2">
             <p class="m-0 small">Notes</p>
             <p class="m-0">{!!$selectedPayment->notes??'<em>No notes saved.</em>'!!}</p>
         </div>

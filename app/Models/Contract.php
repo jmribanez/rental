@@ -11,7 +11,7 @@ class Contract extends Model
 {
     use SoftDeletes;
     
-    protected $fillable = ['property_id','user_id','date_contract','date_start','date_end','invoice_day','amount_security_deposit',
+    protected $fillable = ['property_id','user_id','date_contract','date_start','date_end','amount_security_deposit',
                             'amount_rental', 'agreed_payment_mode', 'scanned_contract_file',];
 
     public function property(): BelongsTo {
@@ -45,8 +45,16 @@ class Contract extends Model
     }
 
     public function getBalance() {
-        $months_passed = date_diff(date_create($this->date_start), date_create(date("Y-m-d")));
-        $balance = ($this->amount_rental * (int)$months_passed->format("%m")) - $this->payments->sum("amount");
+        $date_end = min(date_create($this->date_end), date_create(date("Y-m-d")));
+        $months_passed = date_diff(date_create($this->date_start), $date_end);
+        $balance = ($this->amount_rental * ((int)$months_passed->format("%m")+1)) - $this->payments->sum("amount");
         return number_format($balance,2);
+    }
+
+    public function getMonthsDue() {
+        $date_end = min(date_create($this->date_end), date_create(date("Y-m-d")));
+        $months_passed = date_diff(date_create($this->date_start), $date_end);
+        $balance = ($this->amount_rental * ((int)$months_passed->format("%m")+1)) - $this->payments->sum("amount");
+        return (int)$balance / $this->amount_rental;
     }
 }

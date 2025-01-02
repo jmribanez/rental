@@ -10,7 +10,7 @@ class Payment extends Model
 {
     Use SoftDeletes;
     // Note (12/15) - formerly Transaction
-    protected $fillable = ['date_payment', 'contract_id', 'user_id', 'amount', 'or_number', 'date_coverage_start', 'date_coverage_end', 'notes'];
+    protected $fillable = ['date_payment', 'contract_id', 'user_id', 'amount', 'or_number', 'date_coverage_start', 'date_coverage_end', 'payment_mode', 'notes', 'check_number', 'check_date', 'check_bank'];
 
     public function contract(): BelongsTo {
         return $this->belongsTo(Contract::class);

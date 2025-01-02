@@ -20,7 +20,11 @@ return new class extends Migration
             $table->string('or_number');
             $table->date('date_coverage_start');
             $table->date('date_coverage_end');
+            $table->string('payment_mode');
             $table->text('notes')->nullable();
+            $table->text('check_number')->nullable();
+            $table->date('check_date')->nullable();
+            $table->text('check_bank')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

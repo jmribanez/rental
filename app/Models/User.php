@@ -72,4 +72,8 @@ class User extends Authenticatable
             return $this->name_company;
         return $this->name_first . ' ' . $this->name_last;
     }
+
+    public function activeContract() {
+        return $this->contracts->where('date_start','<=',date("Y-m-d"))->where('date_end','>=',date("Y-m-d"))->first();
+    }
 }

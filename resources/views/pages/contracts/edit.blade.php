@@ -45,11 +45,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 mb-2">
+                {{-- <div class="col mb-2">
                     <label for="txt_invoice_day" class="form-label">Cut-off day<span class="text-danger">*</span></label>
                     <input type="number" name="invoice_day" id="txt_invoice_day" class="form-control" min="1" max="28" value="{{$contract->invoice_day}}" required>
-                </div>
-                <div class="col-md-4 mb-2">
+                </div> --}}
+                <div class="col mb-2">
                     <label for="sel_agreed_payment_mode" class="form-label">Agreed Payment Mode</label>
                     <select name="agreed_payment_mode" id="sel_agreed_payment_mode" class="form-select">
                         <option disabled {{($contract->agreed_payment_mode == null)?'selected':''}}>Choose</option>
@@ -59,7 +59,7 @@
                         <option value="Check" {{($contract->agreed_payment_mode == 'Check')?'selected':''}}>Check</option>
                     </select>
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col mb-3">
                     <label for="file_scanned_contract" class="form-label">Scanned Contract</label>
                     <input type="file" name="scanned_contract_file" id="file_scanned_contract" class="form-control">
                 </div>

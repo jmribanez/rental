@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-4 mb-3">
         <p class="m-0 mb-1 fw-bold">Contract and Balance</p>
-        @if($contract->property->activeContract()->id == $contract->id)
+        {{-- @if($contract->property->activeContract()->id == $contract->id)
             <x-contract.detailedcard :contract="$contract" status="Active" />
         @else
             @if ($contract->property->lastContract()->id == $contract->id)
@@ -15,6 +15,11 @@
             @else
                 <x-contract.nocontract />
             @endif
+        @endif --}}
+        @if($contract != null)
+        <x-contract.detailedcard :contract="$contract" status="{{$status}}" />
+        @else
+        <x-contract.nocontract />
         @endif
     </div>
     <div class="col-md-4 mb-3">

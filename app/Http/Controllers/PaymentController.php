@@ -66,6 +66,10 @@ class PaymentController extends Controller
         $payment->or_number = $request->or_number;
         $payment->date_coverage_start = $request->date_coverage_start;
         $payment->date_coverage_end = $request->date_coverage_end;
+        $payment->payment_mode = $request->payment_mode;
+        $payment->check_number = $request->check_number;
+        $payment->check_date = $request->check_date;
+        $payment->check_bank = $request->check_bank;
         $payment->notes = $payment->notes;
         $payment->save();
         return to_route('property.show',$payment->contract->property->id)
@@ -117,6 +121,10 @@ class PaymentController extends Controller
         $payment->or_number = $request->or_number;
         $payment->date_coverage_start = $request->date_coverage_start;
         $payment->date_coverage_end = $request->date_coverage_end;
+        $payment->payment_mode = $request->payment_mode;
+        $payment->check_number = $request->check_number;
+        $payment->check_date = $request->check_date;
+        $payment->check_bank = $request->check_bank;
         $payment->notes = $payment->notes;
         $payment->update();
         return to_route('property.show',$payment->contract->property->id)

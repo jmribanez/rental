@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col">{{$contract->tenant->name_first . ' ' . $contract->tenant->name_last}}</div>
                         <div class="col d-none d-lg-block">{{$contract->contractMidDateToString()}}</div>
-                        <div class="col-4 col-lg-3 text-end">Php {{$contract->amountrentalToString()}}</div>
+                        <div class="col-4 col-lg-3 text-end">Php {{$contract->getBalance()}}</div>
                     </div>
                 </a>
                 @endforeach
