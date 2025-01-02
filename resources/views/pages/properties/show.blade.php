@@ -19,7 +19,7 @@
                 @endif
             @endif
             <div class="d-flex mb-1 align-items-center">
-                <p class="m-0 me-auto fw-bold">Payments</p>
+                <p class="m-0 me-auto fw-bold">Payments for this property</p>
                 {{-- <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a> --}}
                 <a href="{{route('property.newPayment',$property->id)}}" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
             </div>

@@ -58,7 +58,7 @@
             </div>
             <div class="col mb-2 d-none" id="edCD">
                 <label for="txtcheckdate" class="form-label" id="lblCD">Check Date</label>
-                <input type="date" name="check_date" id="txtcheckdate" class="form-control" value="{{date("Y-m-d")}}">
+                <input type="date" name="check_date" id="txtcheckdate" class="form-control">
             </div>
             <div class="col mb-2 d-none" id="edCB">
                 <label for="txtcheckbank" class="form-label" id="lblCB">Check Bank</label>
@@ -145,7 +145,7 @@
                     document.getElementById('edCD').classList.add('d-none');
                     document.getElementById('edCB').classList.add('d-none');
                     document.getElementById('edCA').classList.add('d-none');
-                    break
+                    break;
             }
         }
     </script>

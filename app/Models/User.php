@@ -76,4 +76,45 @@ class User extends Authenticatable
     public function activeContract() {
         return $this->contracts->where('date_start','<=',date("Y-m-d"))->where('date_end','>=',date("Y-m-d"))->first();
     }
+
+    public function lastContract() {
+        $lastStart = date("Y-m-d");
+        if($this->activeContract() != null) {
+            $lastStart = $this->activeContract()->date_start;
+        }
+        return $this->contracts->where('date_end','<',$lastStart)->first();
+    }
+
+    public function lastPayment() {
+        // if($this->payments->count() == 0)
+        //     return null;
+        // return $this->payments->sortByDesc('date_payment')->first();
+        $lastPayment = (object)['date_payment' => '2000-01-01'];
+        foreach($this->contracts as $c) {
+            if($c->lastPayment()->date_payment > $lastPayment->date_payment)
+                $lastPayment = $c->lastPayment();
+        }
+        if($lastPayment->date_payment == '2000-01-01')
+            return null;
+        else
+            return $lastPayment;
+    }
+
+    public function getBalance() {
+        $balance = 0;
+        $contracts = $this->contracts;
+        foreach($contracts as $c) {
+            $balance += $c->getBalanceRaw();
+        }
+        return number_format($balance,2);
+    }
+
+    public function getBalanceRaw() {
+        $balance = 0;
+        $contracts = $this->contracts;
+        foreach($contracts as $c) {
+            $balance += $c->getBalanceRaw();
+        }
+        return $balance;
+    }
 }

@@ -19,9 +19,9 @@
             <div class="border rounded p-3">
                 <div class="d-flex justify-content-between">
                     <p class="m-0 fw-bold">Amount</p>
-                    <p class="m-0"><em>Up-to-date</em></p>
+                    <p class="m-0">@if($selectedTenant->getBalanceRaw()>0) {{number_format($selectedTenant->getBalanceRaw(),2)}} @else <em>Up-to-date</em> @endif</p>
                 </div>
-                <p class="m-0 small">Last payment: November 16, 2024</p>
+                <p class="m-0 small">@if($selectedTenant->lastPayment() != null) Last payment: {{date('M j, Y',strtotime($selectedTenant->lastPayment()->date_payment))}} @else <em>No previous payment.</em> @endif </p>
             </div>
         </div>
         <div class="col-lg-6 mb-3">

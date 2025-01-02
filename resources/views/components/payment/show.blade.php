@@ -50,12 +50,12 @@
     </div>
     <hr class="my-2">
     <p class="m-0 mb-1">For the contract of</p>
-    <div class="px-3">
+    <div class="px-3 py-2 position-relative bg-secondary-subtle rounded mb-3">
         <div class="d-flex justify-content-between">
-            <p class="m-0 fw-bold">{{$selectedPayment->contract->tenant->fullName()}}</p>
-            <p class="m-0">Php {{$selectedPayment->contract->amountrentalToString()}}</p>
+            <p class="m-0 fw-bold"><a href="{{route('contract.show', $selectedPayment->contract->id)}}" class="text-dark text-decoration-none stretched-link">{{$selectedPayment->contract->tenant->fullName()}}</a></p>
+            <p class="m-0">Php {{$selectedPayment->contract->amountrentalToString()}} /mo</p>
         </div>
-        <p class="m-0 small mb-3">{{$selectedPayment->contract->contractDateToString()}}</p>
+        <p class="m-0 small">{{$selectedPayment->contract->contractDateToString()}}</p>
     </div>
     <div class="d-flex justify-content-start">
         <a href="{{route('payment.create',['c'=>$selectedPayment->contract->id])}}" class="btn btn-sm btn-outline-primary me-auto">New payment</a>
