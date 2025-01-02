@@ -3,12 +3,15 @@
         <img src="{{($selectedUser->photo_url != null)?asset('storage/user_photos/'.$selectedUser->photo_url):asset('storage/user_photos/usernophoto.jpg')}}" alt="user photo" style="width: 70px; height: 70px; object-fit:cover" class="img-thumbnail me-2">
         <div>
             <h3 class="m-0">{{$selectedUser->name_first . " " . $selectedUser->name_last}}</h3>
+            @if($selectedUser->name_company != null)
+            <p class="m-0">{{$selectedUser->name_company}}</p>
+            @endif
             <p class="m-0">{{$selectedUser->getRoleNames()[0]}}</p>
         </div>
     </div>
     <div class="row">
         <div class="col-6 mb-2">
-            Email: {{$selectedUser->email}}
+            Username: {{$selectedUser->email}}
         </div>
         <div class="col-6 mb-2">
             Contact Number: {!!$selectedUser->contact_number??'<em>Not set</em>'!!}

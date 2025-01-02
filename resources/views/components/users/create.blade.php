@@ -12,10 +12,14 @@
                 <input type="text" id="txt_name_first" class="form-control" name="name_first" value="{{old('name_first')}}" required>
             </div>
         </div>
+        <div class="mb-2">
+            <label for="txt_name_company" class="form-label">Company Name</label>
+            <input type="text" name="name_company" id="txt_name_company" class="form-control" value="{{old('name_company')}}">
+        </div>
         <div class="row">
             <div class="col-md-6 mb-2">
-                <label for="txt_email" class="form-label">Email<span class="text-danger">*</span></label>
-                <input type="email" id="txt_email" class="form-control" name="email" value="{{old('email')}}" required>
+                <label for="txt_email" class="form-label">Username<span class="text-danger">*</span></label>
+                <input type="text" id="txt_email" class="form-control" name="email" value="{{old('email')}}" required>
             </div>
             <div class="col-md-6 mb-2">
                 <label for="sel_role" class="form-label">Role<span class="text-danger">*</span></label>

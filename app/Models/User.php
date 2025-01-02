@@ -23,6 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name_last',
         'name_first',
+        'name_company',
         'email',
         'password',
         'contact_number',
@@ -67,6 +68,8 @@ class User extends Authenticatable
     }
 
     public function fullName() {
+        if(!empty($this->name_company) || $this->name_company != null)
+            return $this->name_company;
         return $this->name_first . ' ' . $this->name_last;
     }
 }

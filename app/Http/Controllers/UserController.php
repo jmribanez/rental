@@ -41,7 +41,7 @@ class UserController extends Controller
     public function create(Request $request)
     {
         // include auth cans
-        $t = $request->query('t',null);
+        $t = $request->query('t','');
         $pagefn = 'create';
         $users = User::all();
         return view('pages.users')
@@ -66,6 +66,7 @@ class UserController extends Controller
         $user = new User;
         $user->name_last = $request->name_last;
         $user->name_first = $request->name_first;
+        $user->name_company = $request->name_company;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->address = $request->address;
@@ -142,6 +143,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name_last = $request->name_last;
         $user->name_first = $request->name_first;
+        $user->name_company = $request->name_company;
         $user->email = $request->email;
         $user->address = $request->address;
         $user->contact_number = $request->contact_number;
