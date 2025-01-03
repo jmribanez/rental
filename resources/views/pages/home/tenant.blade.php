@@ -14,8 +14,8 @@
         </div>
         <div class="col-md-4 mb-3">
             <p class="m-0 fw-bold mb-2">Payments</p>
-            @if(count($paymentHistory)>0)
             <div class="list-group">
+            @if(count($paymentHistory)>0)
             @foreach($paymentHistory as $ph)
             <div class="list-group-item">
                 <div class="d-flex">
