@@ -40,7 +40,7 @@
             <div class="border rounded p-3">
                 @switch($pagefn)
                     @case('show')
-                        <x-tenants.show :selectedTenant="$selectedTenant" />
+                        <x-tenants.show :selectedTenant="$selectedTenant" :status="$status" :paymentHistory="$paymentHistory" />
                         @break
                     @case('contracts')
                         <x-tenants.contracts :selectedTenant="$selectedTenant" />

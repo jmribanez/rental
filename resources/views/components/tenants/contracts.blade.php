@@ -20,10 +20,9 @@
     @if(count($selectedTenant->contracts)>0)
         @foreach ($selectedTenant->contracts as $contract)
         <a href="{{route('contract.show',$contract->id)}}" class="list-group-item list-group item-action">
-            <div class="row">
-                <div class="col">{{$contract->property->name}}</div>
-                <div class="col d-none d-lg-block">{{$contract->date_start}} to {{$contract->date_end}}</div>
-                <div class="col-4 col-lg-3 text-end">Php {{$contract->amount_rental}}</div>
+            <div class="d-flex">
+                <div class="me-auto">{{$contract->contractMidDateToString()}}</div>
+                <div>Php {{number_format($contract->amount_rental,2)}} /mo</div>
             </div>
         </a>
         @endforeach

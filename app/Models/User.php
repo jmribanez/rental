@@ -91,13 +91,22 @@ class User extends Authenticatable
         // return $this->payments->sortByDesc('date_payment')->first();
         $lastPayment = (object)['date_payment' => '2000-01-01'];
         foreach($this->contracts as $c) {
-            if($c->lastPayment()->date_payment > $lastPayment->date_payment)
+            if($c->lastPayment() != null && $c->lastPayment()->date_payment > $lastPayment->date_payment )
                 $lastPayment = $c->lastPayment();
         }
         if($lastPayment->date_payment == '2000-01-01')
             return null;
         else
             return $lastPayment;
+    }
+
+    public function tenantPayments() {
+        $payments = array();
+        foreach($this->contracts as $c) {
+            $cpayments = $c->payments->toArray();
+            $payments = array_merge($payments, $cpayments);
+        }
+        return $payments;
     }
 
     public function getBalance() {

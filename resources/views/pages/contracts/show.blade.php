@@ -30,7 +30,7 @@
         </div>
         <div class="list-group list-group-flush mb-3">
             @if(count($contract->payments)>0)
-            @foreach ($contract->payments as $payment)
+            @foreach ($contract->payments->sortByDesc('date_payment') as $payment)
             <a href="{{route('payment.show',$payment->id)}}" class="list-group-item list-group-item-action">
                 <div class="d-flex justify-content-between">
                     <p class="m-0">{{$payment->getDatePayment()}}</p>

@@ -16,74 +16,66 @@
     <div class="row">
         <div class="col-lg-6 mb-2">
             <p class="m-0 mb-1 fw-bold">Balance</p>
-            <div class="border rounded p-3">
+            <div class="border position-relative rounded p-3">
                 <div class="d-flex justify-content-between">
-                    <p class="m-0 fw-bold">Amount</p>
+                    <p class="m-0 fw-bold">Amount @if($selectedTenant->lastPayment() != null) <a href="{{route('payment.show',$selectedTenant->lastPayment()->id)}}" class="text-dark text-decoration-none stretched-link"></a> @endif</p>
                     <p class="m-0">@if($selectedTenant->getBalanceRaw()>0) {{number_format($selectedTenant->getBalanceRaw(),2)}} @else <em>Up-to-date</em> @endif</p>
                 </div>
                 <p class="m-0 small">@if($selectedTenant->lastPayment() != null) Last payment: {{date('M j, Y',strtotime($selectedTenant->lastPayment()->date_payment))}} @else <em>No previous payment.</em> @endif </p>
             </div>
         </div>
         <div class="col-lg-6 mb-3">
-            <p class="m-0 mb-1 fw-bold">Active Contract</p>
-            <div class="border rounded p-3">
-                <div class="d-flex justify-content-between">
-                    <p class="m-0 fw-bold">Monthly Rent</p>
-                    <p class="m-0">Php 12,300.00</p>
-                </div>
-                <p class="m-0 small">Jan 1, 2024 to Dec 31, 2024</p>
+            <p class="m-0 mb-1 fw-bold">Contract</p>
+            <div class="border position-relative rounded p-3">
+                <?php $contractId = null; ?>
+                @switch($status)
+                    @case('Active')
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0 fw-bold"><a href="{{route('contract.show', $selectedTenant->activeContract()->id)}}" class="text-dark text-decoration-none stretched-link">Active</a></p>
+                        <p class="m-0">{{$selectedTenant->activeContract()->amountrentalToString()}} /mo</p>
+                    </div>
+                    <p class="m-0 small">{{$selectedTenant->activeContract()->contractMidDateToString()}}</p>
+                    <?php $contractId = $selectedTenant->activeContract()->id; ?>
+                    @break
+                    @case('Previous')
+                    <div class="d-flex justify-content-between">
+                        <p class="m-0 fw-bold"><a href="{{route('contract.show', $selectedTenant->lastContract()->id)}}" class="text-dark text-decoration-none stretched-link">Previous</a></p>
+                        <p class="m-0">{{$selectedTenant->lastContract()->amountrentalToString()}} /mo</p>
+                    </div>
+                    <p class="m-0 small">{{$selectedTenant->lastContract()->contractMidDateToString()}}</p>
+                    <?php $contractId = $selectedTenant->lastContract()->id; ?>
+                    @break
+                    @default
+                    <div class="d-flex justify-content-start">
+                        <p class="m-0 fw-bold">No active or previous contract</p>
+                    </div>
+                    <p class="m-0 small">--</p>
+                    @break
+                @endswitch
             </div>
         </div>
     </div>
     <div class="d-flex mb-1 align-items-center">
         <p class="m-0 me-auto fw-bold">Payments</p>
-        <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a>
-        <a href="#" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
+        @if($contractId)
+        <a href="{{route('payment.create',['c'=>$contractId])}}" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
+        @endif
     </div>
     <div class="list-group list-group-flush mb-3">
-        <a href="#" class="list-group-item list-group-item-action">
+        @if(count($paymentHistory)>0)
+        @foreach($paymentHistory as $ph)
+        <a href="{{route('payment.show',$ph['id'])}}" class="list-group-item list-group-item-action">
             <div class="d-flex justify-content-between">
-                <p class="m-0">November 16, 2024</p>
-                <p class="m-0">Php 12,300.00</p>
+                <p class="m-0">{{date('M j, Y',strtotime($ph['date_payment']))}}</p>
+                <p class="m-0">Php {{number_format($ph['amount'],2)}}</p>
             </div>
         </a>
-        <a href="#" class="list-group-item list-group-item-action">
-            <div class="d-flex justify-content-between">
-                <p class="m-0">October 13, 2024</p>
-                <p class="m-0">Php 12,300.00</p>
-            </div>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-            <div class="d-flex justify-content-between">
-                <p class="m-0">November 16, 2024</p>
-                <p class="m-0">Php 12,300.00</p>
-            </div>
-        </a>
-    </div>
-    <div class="d-flex mb-1 align-items-center">
-        <p class="m-0 me-auto fw-bold">Invoice</p>
-        <a href="#" class="btn btn-sm btn-outline-secondary me-2"><i class="fa-solid fa-bars"></i></a>
-        <a href="#" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-plus"></i></a>
-    </div>
-    <div class="list-group list-group-flush mb-3">
-        <a href="#" class="list-group-item list-group-item-action">
-            <div class="d-flex justify-content-between">
-                <p class="m-0">November 1, 2024</p>
-                <p class="m-0">Php 12,300.00</p>
-            </div>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-            <div class="d-flex justify-content-between">
-                <p class="m-0">October 1, 2024</p>
-                <p class="m-0">Php 12,300.00</p>
-            </div>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-            <div class="d-flex justify-content-between">
-                <p class="m-0">November 1, 2024</p>
-                <p class="m-0">Php 12,300.00</p>
-            </div>
-        </a>
+        @endforeach
+        @else
+        <div class="list-group-item">
+            <em class="text-secondary">No payments made.</em>
+        </div>
+        @endif
     </div>
     <div class="d-flex">
         <a href="{{route('tenant.index')}}" class="btn btn-sm btn-outline-secondary me-auto">Cancel</a>

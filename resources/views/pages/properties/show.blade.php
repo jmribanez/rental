@@ -9,11 +9,14 @@
         </div>
         <div class="col-md-4 mb-3">
             <p class="m-0 mb-1 fw-bold">Contract and Balance</p>
+            <?php $contract = null; ?>
             @if($property->activeContract() != null)
                 <x-contract.showcard :contract="$property->activeContract()" status="Active" />
+                <?php $contract = $property->activeContract(); ?>
             @else
                 @if ($property->lastContract() != null)
                     <x-contract.showcard :contract="$property->lastContract()" status="Last" />
+                    <?php $contract = $property->lastContract(); ?>
                 @else
                     <x-contract.nocontract />
                 @endif
@@ -48,7 +51,7 @@
             <div class="border rounded p-3">
                 @switch($payment_mode)
                     @case('create')
-                        <x-payment.create :contract="$property->activeContract()" />
+                        <x-payment.create :contract="$contract" />
                         @break
                     @case('show')
                         

@@ -36,10 +36,19 @@ class TenantController extends Controller
             $query->where('name', 'Tenant');
         }, 1)->get();
         $user = User::find($id);
+        $status = 'None';
+        $paymentHistory = $user->tenantPayments();
+        if($user->activeContract() != null) {
+            $status = 'Active';
+        } else if($user->lastContract() != null) {
+            $status = 'Previous';
+        }
         return view('pages.tenants')
             ->with('pagefn', $pagefn)
             ->with('tenants',$tenants)
-            ->with('selectedTenant', $user);
+            ->with('selectedTenant', $user)
+            ->with('status', $status)
+            ->with('paymentHistory', $paymentHistory);
     }
 
     public function listContracts(string $id) {

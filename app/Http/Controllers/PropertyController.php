@@ -196,7 +196,7 @@ class PropertyController extends Controller
 
     public function newPayment(Property $property) {
         $payment_mode = 'create';
-        if($property->activeContract() == null) {
+        if($property->activeContract() == null && $property->lastContract() == null) {
             return to_route('property.show', $property->id)
                 ->with('status', 'danger')
                 ->with('message', 'There is no active contract to make a payment for.');

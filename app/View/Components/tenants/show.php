@@ -12,7 +12,7 @@ class show extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public User $selectedTenant)
+    public function __construct(public User $selectedTenant, public string $status, public $paymentHistory)
     {
         //
     }
