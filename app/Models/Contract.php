@@ -12,6 +12,7 @@ class Contract extends Model
     use SoftDeletes;
     
     protected $fillable = ['property_id','user_id','date_contract','date_start','date_end','amount_security_deposit',
+                            'amount_electric_deposit', 'amount_water_deposit',
                             'amount_rental', 'agreed_payment_mode', 'scanned_contract_file',];
 
     public function property(): BelongsTo {

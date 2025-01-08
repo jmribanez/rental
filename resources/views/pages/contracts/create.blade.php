@@ -46,6 +46,16 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label for="txt_amount_electric_deposit" class="form-label">Electric Meter Deposit</label>
+                    <input type="number" name="amount_electric_deposit" id="txt_amount_electric_deposit" class="form-control" min="0">
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="txt_amount_water_deposit" class="form-label">Water Meter Deposit</label>
+                    <input type="number" name="amount_water_deposit" id="txt_amount_water_deposit" class="form-control" min="0">
+                </div>
+            </div>
+            <div class="row">
                 <div class="col mb-2">
                     <label for="sel_agreed_payment_mode" class="form-label">Agreed Payment Mode</label>
                     <select name="agreed_payment_mode" id="sel_agreed_payment_mode" class="form-select">

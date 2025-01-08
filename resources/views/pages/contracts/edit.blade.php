@@ -45,6 +45,16 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label for="txt_amount_electric_deposit" class="form-label">Electric Meter Deposit</label>
+                    <input type="number" name="amount_electric_deposit" id="txt_amount_electric_deposit" class="form-control" min="0" value="{{$contract->amount_electric_deposit}}">
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="txt_amount_water_deposit" class="form-label">Water Meter Deposit</label>
+                    <input type="number" name="amount_water_deposit" id="txt_amount_water_deposit" class="form-control" min="0" value="{{$contract->amount_water_deposit}}">
+                </div>
+            </div>
+            <div class="row">
                 {{-- <div class="col mb-2">
                     <label for="txt_invoice_day" class="form-label">Cut-off day<span class="text-danger">*</span></label>
                     <input type="number" name="invoice_day" id="txt_invoice_day" class="form-control" min="1" max="28" value="{{$contract->invoice_day}}" required>

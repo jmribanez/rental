@@ -57,6 +57,8 @@ class ContractController extends Controller
         $contract->amount_security_deposit = $request->amount_security_deposit;
         $contract->amount_rental = $request->amount_rental;
         $contract->agreed_payment_mode = $request->agreed_payment_mode;
+        $contract->amount_electric_deposit = $request->amount_electric_deposit;
+        $contract->amount_water_deposit = $request->amount_water_deposit;
         if($request->hasFile('scanned_contract_file')) {
             $allowedFileExtension = ['pdf'];
             $file = $request->file('scanned_contract_file');
@@ -127,6 +129,8 @@ class ContractController extends Controller
         $contract->amount_security_deposit = $request->amount_security_deposit;
         $contract->amount_rental = $request->amount_rental;
         $contract->agreed_payment_mode = $request->agreed_payment_mode;
+        $contract->amount_electric_deposit = $request->amount_electric_deposit;
+        $contract->amount_water_deposit = $request->amount_water_deposit;
         if($request->hasFile('scanned_contract_file')) {
             $allowedFileExtension = ['pdf'];
             $file = $request->file('scanned_contract_file');

@@ -16,7 +16,7 @@
         @break
     @endswitch
     <hr class="my-2">
-    <div class="row">
+    <div class="row row-cols-2">
         <div class="col mb-2">
             <p class="m-0 small">Contract Date</p>
             <p class="m-0">{{date('F j, Y',strtotime($contract->date_contract))}}</p>
@@ -24,6 +24,14 @@
         <div class="col mb-2">
             <p class="m-0 small">Security Deposit</p>
             <p class="m-0">Php {{number_format($contract->amount_security_deposit, 2)}}</p>
+        </div>
+        <div class="col mb-2">
+            <p class="m-0 small">Electric Meter Deposit</p>
+            <p class="m-0">Php {{number_format($contract->amount_electric_deposit??0, 2)}}</p>
+        </div>
+        <div class="col mb-2">
+            <p class="m-0 small">Water Meter Deposit</p>
+            <p class="m-0">Php {{number_format($contract->amount_water_deposit??0, 2)}}</p>
         </div>
     </div>
     <hr class="my-2">
