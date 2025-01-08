@@ -37,11 +37,11 @@
         </div>
         <div class="col-md-4 mb-3">
             <p class="m-0 me-auto fw-bold mb-2">Property Details</p>
-            @if($contract != null)
-                <x-property.showcard :property="$contract->property" />
+            @if(Auth::user()->activeContract() != null)
+                <x-property.showcard :property="Auth::user()->activeContract()->property" />
             @else
             <div class="border p-3 rounded">
-                <p class="m-0 text-center">No contract</p>
+                <p class="m-0 text-center">No active contract</p>
             </div>
             @endif
         </div>
