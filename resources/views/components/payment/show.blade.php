@@ -6,6 +6,10 @@
             <p class="m-0">{{$selectedPayment->getDatePayment()}}</p>
         </div>
         <div class="col mb-2">
+            <p class="m-0 small">Property</p>
+            <p class="m-0"><a href="{{route('property.show',$selectedPayment->contract->property->id)}}" class="text-decoration-none">{{$selectedPayment->contract->property->name}} <i class="fa-solid fa-arrow-right"></i></a></p>
+        </div>
+        <div class="col mb-2">
             <p class="m-0 small">Received by</p>
             <p class="m-0">{{$selectedPayment->receiver->fullName()}}</p>
         </div>

@@ -11,7 +11,7 @@
             <p class="m-0 small mb-3">{{$contract->contractMidDateToString()}}</p>
             <input type="hidden" name="contract_id" value="{{$contract->id}}">
         </div>
-        @if($contract->getBalance() > 0)
+        @if($contract->getMonthsCanPay() > 0)
         <label class="form-label">Payment Coverage</label>
         <div class="d-flex align-items-start mb-2">
             <div class="btn-group me-3" role="group">
@@ -82,7 +82,7 @@
         ?>
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         
-        var monthsdue = {{$contract->getMonthsDue()}};
+        var monthsdue = {{$contract->getMonthsCanPay()}};
         var monthsToPay = 1;
         var amountRental = {{$contract->amount_rental}};
         var amountToPay = {{$contract->amount_rental}};

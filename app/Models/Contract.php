@@ -64,4 +64,11 @@ class Contract extends Model
         $balance = ($this->amount_rental * ((int)$months_passed->format("%m")+1)) - $this->payments->sum("amount");
         return (int)$balance / $this->amount_rental;
     }
+
+    public function getMonthsCanPay() {
+        $date_end = date_create($this->date_end);
+        $months_passed = date_diff(date_create($this->date_start), $date_end);
+        $balance = ($this->amount_rental * ((int)$months_passed->format("%m")+1)) - $this->payments->sum("amount");
+        return (int)$balance / $this->amount_rental;
+    }
 }

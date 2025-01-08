@@ -11,7 +11,7 @@
                     @foreach ($payments as $p)
                         <a href="{{route('payment.show', $p->id)}}" class="list-group-item list-group-item-action {{(($selectedPayment->id??0) == $p->id)?'active':'';}}">
                             <div class="d-flex justify-content-between">
-                                <span>{{$p->contract->tenant->fullName()}}</span>
+                                <span>{{$p->contract->property->name}}</span>
                                 <span>{{$p->amountToString()}}</span>
                             </div>
                             <div class="d-flex justify-content-between small">
