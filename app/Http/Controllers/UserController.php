@@ -190,4 +190,44 @@ class UserController extends Controller
     {
         //
     }
+
+    public function changePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'userid' => 'required',
+            'password' => 'required|confirmed',
+        ]);
+        $user = User::find($request->userid);
+        $user->password = Hash::make($request->password);
+        $user->update();
+        return to_route('user.show',$user->id)
+            ->with('status','success')
+            ->with('message','The password of ' . $user->name_first . ' ' . $user->name_last . ' has been changed.');
+    }
+
+    public function selfChangePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|confirmed',
+        ]);
+        $user = User::find(Auth::user()->id);
+        $old_password = $request->old_password;
+        if(!password_verify($old_password, $user->password)) {
+            return to_route('profile')
+            ->with('status','danger')
+            ->with('message','Unable to change the password. Old password is incorrect.');
+        }
+        $user->password = Hash::make($request->password);
+        $user->update();
+        return to_route('profile')
+            ->with('status','success')
+            ->with('message','Your password has been successfully changed.');
+    }
+
+    public function showProfile() {
+        $user = Auth::user();
+        return view('pages.home.profile')
+            ->with('selectedUser', $user);
+    }
 }

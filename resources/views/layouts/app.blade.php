@@ -73,15 +73,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a href="{{route('profile')}}" class="dropdown-item">Profile</a>
                                     @can('list users')
                                     <a href="{{route('user.index')}}" class="dropdown-item">Users</a>
                                     @endcan
                                     @can('list utilities')
                                     <a href="{{route('utility.index')}}" class="dropdown-item">Utilities</a>
                                     @endcan
-                                    @can('list utilities')
                                     <hr class="dropdown-divider">
-                                    @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
