@@ -64,6 +64,7 @@ class Contract extends Model
         $months_passed = date_diff(date_create($this->date_start), $date_end);
         $balance = ($this->amount_rental * ((int)$months_passed->format("%m")+1)) - $this->payments->sum("amount");
         return (int)$balance / $this->amount_rental;
+        // Jan 12 - get the remainder and add 1 if remainder is not 0.
     }
 
     public function getMonthsCanPay() {
@@ -71,5 +72,15 @@ class Contract extends Model
         $months_passed = date_diff(date_create($this->date_start), $date_end);
         $balance = ($this->amount_rental * ((int)$months_passed->format("%m")+1)) - $this->payments->sum("amount");
         return (int)$balance / $this->amount_rental;
+        // Jan 12 - this should be modified to change $date_end to use $this->date_end.
+        //          This function might also take a side step because the total contract price
+        //          might be a consideration to allow advanced payments.
+    }
+
+    public function getContractBalance() {
+        $date_end = date_create($this->date_end);
+        $months_passed = date_diff(date_create($this->date_start), $date_end);
+        $balance = ($this->amount_rental * ((int)$months_passed->format("%m")+1)) - $this->payments->sum("amount");
+        return $balance;
     }
 }
