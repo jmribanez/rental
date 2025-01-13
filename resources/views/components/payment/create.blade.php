@@ -73,20 +73,25 @@
     <script>
         <?php
             $coverage_start = ($contract->lastPayment()!=null)?date('Y-m-d', strtotime("+1 day", strtotime($contract->lastPayment()->date_coverage_end))):$contract->date_start;
+            // echo date_create($contract->date_end) . ", " . date_create(strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end)));
+            $coverage_end = min(date('Y-m-d',strtotime($contract->date_end)), date('Y-m-d', strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end))));
         ?>
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         
         var monthsdue = {{$contract->getMonthsCanPay()}};
-        var monthsToPay = 1;
+        var monthsToPay = (monthsdue<1)?0:1;
         var amountRental = {{$contract->amount_rental}};
         var contractBalance = {{$contract->getContractBalance()}};
         var amountToPay = (amountRental<contractBalance)?amountRental:contractBalance;
         var coverage_start = new Date('{{$coverage_start}}');
-        var coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + 1) - (24*60*60*1000));
+        // var coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + 1) - (24*60*60*1000));
+        var coverage_end = new Date('{{$coverage_end}}');
         document.getElementById('pcDates').innerHTML = coverage_start.toLocaleString('en-US', options) + " to " + coverage_end.toLocaleString('en-US', options);
         document.getElementById('txtdatecoveragestart').value = coverage_start.toISOString().split('T')[0];
         document.getElementById('txtdatecoverageend').value = coverage_end.toISOString().split('T')[0];
         function addpc() {
+            if(monthsToPay<1)
+                return;
             monthsToPay++;
             if(monthsToPay > monthsdue)
                 monthsToPay = monthsdue;
@@ -100,6 +105,8 @@
         }
 
         function removepc() {
+            if(monthsToPay<1)
+                return;
             monthsToPay--;
             if(monthsToPay < 1)
                 monthsToPay = 1;
@@ -116,7 +123,7 @@
             var _amount = e.target.value;
             var _monthsToPay = parseInt(_amount / amountRental);
             var _daysToPay = parseInt(((_amount / amountRental) - _monthsToPay) * 30.436875);
-            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + _monthsToPay) + ((24*60*60*1000)*_daysToPay) - (24*60*60*1000));
+            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + _monthsToPay) + (86400000*_daysToPay) - 86400000);
             document.getElementById('pcDates').innerHTML = coverage_start.toLocaleString('en-US', options) + " to " + coverage_end.toLocaleString('en-US', options);
             document.getElementById('txtdatecoverageend').value = coverage_end.toISOString().split('T')[0];
         }
