@@ -74,7 +74,7 @@
         <?php
             $coverage_start = ($contract->lastPayment()!=null)?date('Y-m-d', strtotime("+1 day", strtotime($contract->lastPayment()->date_coverage_end))):$contract->date_start;
             // echo date_create($contract->date_end) . ", " . date_create(strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end)));
-            $coverage_end = min(date('Y-m-d',strtotime($contract->date_end)), date('Y-m-d', strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end))));
+            $coverage_end = ($contract->lastPayment()!=null)?min(date('Y-m-d',strtotime($contract->date_end)), date('Y-m-d', strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end)))):date('Y-m-d', strtotime("-1 day", strtotime("+1 month", strtotime($contract->date_start))));
         ?>
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         
