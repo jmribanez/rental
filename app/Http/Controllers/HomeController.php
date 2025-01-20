@@ -85,6 +85,14 @@ class HomeController extends Controller
         return view('regularhome');
     }
 
+    public function report($year, $month) {
+        $start_date = date_create($year."-".$month."-01");
+        $end_date = date_create(date('Y-m-d', strtotime("-1 day", strtotime("+1 month", strtotime(date_format($start_date,"Y-m-d"))))));
+        return view('pages.home.report')
+            ->with('start_date', $start_date)
+            ->with('end_date', $end_date);
+    }
+
     private function getPastMonths($months) {
         $displayMonths = array();
         $displayAmount = array();

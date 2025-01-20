@@ -27,3 +27,4 @@ Route::get('property/{property}/newpayment', [PropertyController::class, 'newPay
 Route::post('user/{id}/changepassword', [UserController::class, 'changePassword'])->name('user.changepassword');
 Route::post('profile/changePassword', [UserController::class, 'selfChangePassword'])->name('user.selfchangepassword');
 Route::get('profile', [UserController::class, 'showProfile'])->name('profile');
+Route::get('report/{year}/{month}', [HomeController::class, 'report'])->whereNumber('year')->whereNumber('month')->name('report');
