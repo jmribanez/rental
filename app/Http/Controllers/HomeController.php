@@ -31,6 +31,7 @@ class HomeController extends Controller
         $userRole = Auth::user()->getRoleNames()[0];
         switch($userRole) {
             case 'Administrator':
+            case 'Landlord':
                 $counts = array();
                 $properties = Property::all();
                 $occupied = 0;
@@ -57,7 +58,7 @@ class HomeController extends Controller
                 $counts['occupied'] = $occupied;
                 $counts['vacant'] = count($properties) - $occupied;
                 $collectionData = $this->getPastMonths(12);
-            case 'Landlord':
+            
                 return view('pages.home.admin')
                     ->with('counts', $counts)
                     ->with('collectionData', $collectionData);
@@ -88,9 +89,11 @@ class HomeController extends Controller
     public function report($year, $month) {
         $start_date = date_create($year."-".$month."-01");
         $end_date = date_create(date('Y-m-d', strtotime("-1 day", strtotime("+1 month", strtotime(date_format($start_date,"Y-m-d"))))));
+        $properties = Property::all(); // implement by landlord soon
         return view('pages.home.report')
             ->with('start_date', $start_date)
-            ->with('end_date', $end_date);
+            ->with('end_date', $end_date)
+            ->with('properties', $properties);
     }
 
     private function getPastMonths($months) {

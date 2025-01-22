@@ -60,4 +60,14 @@ class Property extends Model
         }
         return $payments;
     }
+
+    public function getSumPaymentsForDate($start_date, $end_date) {
+        $sum_payments = 0;
+        foreach($this->contracts as $c) {
+            foreach($c->payments->where('date_payment','>=', date_format($start_date,"Y-m-d"))->where('date_payment','<=',date_format($end_date,"Y-m-d")) as $p) {
+                $sum_payments += $p->amount;
+            }
+        }
+        return $sum_payments;
+    }
 }

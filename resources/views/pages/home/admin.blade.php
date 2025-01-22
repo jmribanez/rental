@@ -11,20 +11,20 @@
         </div>
         <div class="col mb-2">
             <div class="border rounded p-3 position-relative">
-                <h1>{{$counts['tenants']}}</h1>
-                <p class="m-0"><i class="fa-solid fa-user-group"></i> <a href="{{route('tenant.index')}}" class="stretched-link text-decoration-none text-body">Tenants</a></p>
-            </div>
-        </div>
-        <div class="col mb-2">
-            <div class="border rounded p-3 position-relative">
                 <h1>{{number_format($counts['forCollection'],2)}}</h1>
                 <p class="m-0"><i class="fa-solid fa-user-clock"></i> <a href="{{route('tenant.index')}}" class="stretched-link text-decoration-none text-body">For collection from {{$counts['tenantsForCollection']}} people</a></p>
             </div>
         </div>
-        <div class="col mb-3">
+        <div class="col mb-2">
             <div class="border rounded p-3 position-relative">
                 <h1>{{number_format($counts['collectionToDate'],2)}}</h1>
                 <p class="m-0"><i class="fa-solid fa-peso-sign"></i> Collection to date<a href="{{route('payment.index')}}" class="stretched-link text-decoration-none text-body"></a></p>
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="border rounded p-3 position-relative">
+                <h1>Report</h1>
+                <p class="m-0"><i class="fa-solid fa-chart-line"></i> {{date('F Y')}}<a href="{{route('report',[date('Y'),date('m')])}}" class="stretched-link text-decoration-none text-body"></a></p>
             </div>
         </div>
       </div>
