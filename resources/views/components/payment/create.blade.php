@@ -11,11 +11,22 @@
             <p class="m-0 small mb-3">{{$contract->contractMidDateToString()}}</p>
             <input type="hidden" name="contract_id" value="{{$contract->id}}">
         </div>
+        <?php
+            $coverage_start = ($contract->lastPayment()!=null)?date('Y-m-d', strtotime("+1 day", strtotime($contract->lastPayment()->date_coverage_end))):$contract->date_start;
+            $monthdeficit = $contract->getBalanceRaw() % $contract->amount_rental;
+            if($monthdeficit != 0) {
+                // $coverage_start = date('Y-m-d', strtotime($contract->lastPayment()->date_coverage_start));
+                $coverage_start = date('Y-m-d', strtotime("+1 day", strtotime("-1 month", strtotime($contract->lastPayment()->date_coverage_end))));
+            }
+            // echo date_create($contract->date_end) . ", " . date_create(strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end)));
+            // $coverage_end = ($contract->lastPayment()!=null)?min(date('Y-m-d',strtotime($contract->date_end)), date('Y-m-d', strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end)))):date('Y-m-d', strtotime("-1 day", strtotime("+1 month", strtotime($contract->date_start))));
+            $coverage_end = date('Y-m-d', strtotime("-1 day", strtotime("+1 month", strtotime($coverage_start))));
+        ?>
         @if($contract->getContractBalance() > 0)
         <div class="mb-2">
             <label for="txtamount" class="form-label">Amount<span class="text-danger">*</span></label>
             <div class="input-group">
-                <input type="number" name="amount" id="txtamount" class="form-control" min="0" max="{{$contract->getContractBalance()}}" value="{{($contract->amount_rental<$contract->getContractBalance())?$contract->amount_rental:$contract->getContractBalance()}}" onchange="updateCoverage(event)" required>
+                <input type="number" name="amount" id="txtamount" class="form-control" min="0" max="{{$contract->getContractBalance()}}" value="{{($monthdeficit!=0)?$monthdeficit:$contract->amount_rental}}" onchange="updateCoverage(event)" required>
                 <button type="button" class="btn btn-outline-secondary" onclick="removepc()"><i class="fa-solid fa-minus"></i></button>
                 <button type="button" class="btn btn-outline-secondary" onclick="addpc()"><i class="fa-solid fa-plus"></i></button>
             </div>
@@ -71,18 +82,16 @@
         @endif
     </form>
     <script>
-        <?php
-            $coverage_start = ($contract->lastPayment()!=null)?date('Y-m-d', strtotime("+1 day", strtotime($contract->lastPayment()->date_coverage_end))):$contract->date_start;
-            // echo date_create($contract->date_end) . ", " . date_create(strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end)));
-            $coverage_end = ($contract->lastPayment()!=null)?min(date('Y-m-d',strtotime($contract->date_end)), date('Y-m-d', strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end)))):date('Y-m-d', strtotime("-1 day", strtotime("+1 month", strtotime($contract->date_start))));
-        ?>
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         
-        var monthsdue = {{$contract->getMonthsCanPay()}};
-        var monthsToPay = (monthsdue<1)?0:1;
+        var monthsdue = {{(int)$contract->getMonthsCanPay()}};
+        var monthdeficit = {{$monthdeficit}};
+        var monthsToPay = (monthdeficit!=0)?0:1;
         var amountRental = {{$contract->amount_rental}};
         var contractBalance = {{$contract->getContractBalance()}};
-        var amountToPay = (amountRental<contractBalance)?amountRental:contractBalance;
+        var balanceRaw = {{$contract->getBalanceRaw()}};
+        // var amountToPay = (amountRental<contractBalance)?amountRental:contractBalance;
+        var amountToPay = Math.min(amountRental, contractBalance, monthdeficit);
         var coverage_start = new Date('{{$coverage_start}}');
         // var coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + 1) - (24*60*60*1000));
         var coverage_end = new Date('{{$coverage_end}}');
@@ -90,13 +99,15 @@
         document.getElementById('txtdatecoveragestart').value = coverage_start.toISOString().split('T')[0];
         document.getElementById('txtdatecoverageend').value = coverage_end.toISOString().split('T')[0];
         function addpc() {
-            if(monthsToPay<1)
-                return;
+            // if(monthsToPay<1)
+            //     return;
             monthsToPay++;
-            if(monthsToPay > monthsdue)
-                monthsToPay = monthsdue;
-            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + monthsToPay) - (24*60*60*1000));
             amountToPay = monthsToPay * amountRental;
+            if(monthsToPay > monthsdue) {
+                monthsToPay = monthsdue;
+                amountToPay = monthsToPay * amountRental + monthdeficit;
+            }
+            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + monthsToPay + (monthdeficit>0?1:0)) - (24*60*60*1000));
             // document.getElementById('pcMonth').innerHTML = monthsToPay + " month" + (monthsToPay>1?'s':'');
             document.getElementById('pcAmount').innerHTML = amountToPay.toLocaleString('en-US', {minimumFractionDigits:2});
             document.getElementById('txtamount').value = amountToPay;
@@ -105,13 +116,21 @@
         }
 
         function removepc() {
-            if(monthsToPay<1)
-                return;
+            // if(monthsToPay<1)
+            //     return;
             monthsToPay--;
-            if(monthsToPay < 1)
-                monthsToPay = 1;
-            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + monthsToPay) - (24*60*60*1000));
             amountToPay = monthsToPay * amountRental;
+            if(monthsToPay < 1) {
+                if(monthdeficit > 0) {
+                    amountToPay = monthdeficit;
+                    monthsToPay = 0;
+                } else {
+                    monthsToPay = 1;
+                    amountToPay = monthsToPay * amountRental;
+                }
+            }
+            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + monthsToPay + (monthdeficit>0?1:0)) - (24*60*60*1000));
+            
             // document.getElementById('pcMonth').innerHTML = monthsToPay + " month" + (monthsToPay>1?'s':'');
             document.getElementById('pcAmount').innerHTML = amountToPay.toLocaleString('en-US', {minimumFractionDigits:2});
             document.getElementById('txtamount').value = amountToPay;
@@ -120,10 +139,16 @@
         }
 
         function updateCoverage(e) {
+            // var _amount = e.target.value;
+            // var _monthsToPay = parseInt(_amount / amountRental);
+            // var _daysToPay = parseInt(((_amount / amountRental) - _monthsToPay) * 30.436875);
+            // coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + _monthsToPay) + (86400000*_daysToPay) - 86400000);
+            // document.getElementById('pcDates').innerHTML = coverage_start.toLocaleString('en-US', options) + " to " + coverage_end.toLocaleString('en-US', options);
+            // document.getElementById('txtdatecoverageend').value = coverage_end.toISOString().split('T')[0];
+
             var _amount = e.target.value;
             var _monthsToPay = parseInt(_amount / amountRental);
-            var _daysToPay = parseInt(((_amount / amountRental) - _monthsToPay) * 30.436875);
-            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + _monthsToPay) + (86400000*_daysToPay) - 86400000);
+            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + _monthsToPay + (_amount>monthdeficit?1:0)));
             document.getElementById('pcDates').innerHTML = coverage_start.toLocaleString('en-US', options) + " to " + coverage_end.toLocaleString('en-US', options);
             document.getElementById('txtdatecoverageend').value = coverage_end.toISOString().split('T')[0];
         }

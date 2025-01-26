@@ -37,8 +37,12 @@
     <hr class="my-2">
     <div class="mb-3">
         <div class="d-flex justify-content-between">
-            <p class="m-0 fw-bold">Balance</p>
+            <p class="m-0 fw-bold">Current Balance</p>
             <p class="m-0">{{$contract->getBalance()}}</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <p class="m-0">Contract Balance</p>
+            <p class="m-0">{{number_format($contract->getContractBalance(),2)}}</p>
         </div>
         @if($contract->lastPayment() != null)
         <p class="m-0 small">Last payment: {{$contract->lastPayment()->getDatePayment()}}</p>
