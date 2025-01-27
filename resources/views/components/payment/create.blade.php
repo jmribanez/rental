@@ -21,12 +21,15 @@
             // echo date_create($contract->date_end) . ", " . date_create(strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end)));
             // $coverage_end = ($contract->lastPayment()!=null)?min(date('Y-m-d',strtotime($contract->date_end)), date('Y-m-d', strtotime("+1 month", strtotime($contract->lastPayment()->date_coverage_end)))):date('Y-m-d', strtotime("-1 day", strtotime("+1 month", strtotime($contract->date_start))));
             $coverage_end = date('Y-m-d', strtotime("-1 day", strtotime("+1 month", strtotime($coverage_start))));
+            $minval = $contract->getContractBalance();
+            $minval = $contract->amount_rental<$minval?$contract->amount_rental:$minval;
+            $minval = ($monthdeficit<$minval)&&($monthdeficit>0)?$monthdeficit:$minval;
         ?>
         @if($contract->getContractBalance() > 0)
         <div class="mb-2">
             <label for="txtamount" class="form-label">Amount<span class="text-danger">*</span></label>
             <div class="input-group">
-                <input type="number" name="amount" id="txtamount" class="form-control" min="0" max="{{$contract->getContractBalance()}}" value="{{($monthdeficit!=0)?$monthdeficit:$contract->amount_rental}}" onchange="updateCoverage(event)" required>
+                <input type="number" name="amount" id="txtamount" class="form-control" min="0" max="{{$contract->getContractBalance()}}" value="{{$minval}}" onchange="updateCoverage(event)" required>
                 <button type="button" class="btn btn-outline-secondary" onclick="removepc()"><i class="fa-solid fa-minus"></i></button>
                 <button type="button" class="btn btn-outline-secondary" onclick="addpc()"><i class="fa-solid fa-plus"></i></button>
             </div>
@@ -105,9 +108,11 @@
             amountToPay = monthsToPay * amountRental;
             if(monthsToPay > monthsdue) {
                 monthsToPay = monthsdue;
-                amountToPay = monthsToPay * amountRental + monthdeficit;
+                amountToPay = monthsToPay * amountRental + Math.min(amountRental, contractBalance, Math.abs(monthdeficit));
             }
-            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + monthsToPay + (monthdeficit>0?1:0)) - (24*60*60*1000));
+            var _butal = amountToPay % amountRental;
+            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + (monthdeficit>0?1:0) + monthsToPay + ((_butal>monthdeficit)?1:0)) - 86400000);
+            // coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + monthsToPay + (monthdeficit>0?1:0)) - (24*60*60*1000));
             // document.getElementById('pcMonth').innerHTML = monthsToPay + " month" + (monthsToPay>1?'s':'');
             document.getElementById('pcAmount').innerHTML = amountToPay.toLocaleString('en-US', {minimumFractionDigits:2});
             document.getElementById('txtamount').value = amountToPay;
@@ -121,15 +126,17 @@
             monthsToPay--;
             amountToPay = monthsToPay * amountRental;
             if(monthsToPay < 1) {
-                if(monthdeficit > 0) {
-                    amountToPay = monthdeficit;
+                if(Math.abs(monthdeficit) > 0) {
+                    amountToPay = Math.min(amountRental, contractBalance, Math.abs(monthdeficit));
                     monthsToPay = 0;
                 } else {
                     monthsToPay = 1;
                     amountToPay = monthsToPay * amountRental;
                 }
             }
-            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + monthsToPay + (monthdeficit>0?1:0)) - (24*60*60*1000));
+            var _butal = amountToPay % amountRental;
+            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + (monthdeficit>0?1:0) + monthsToPay + ((_butal>monthdeficit)?1:0)) - 86400000);
+            // coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + monthsToPay + (monthdeficit>0?1:0)) - (24*60*60*1000));
             
             // document.getElementById('pcMonth').innerHTML = monthsToPay + " month" + (monthsToPay>1?'s':'');
             document.getElementById('pcAmount').innerHTML = amountToPay.toLocaleString('en-US', {minimumFractionDigits:2});
@@ -148,7 +155,9 @@
 
             var _amount = e.target.value;
             var _monthsToPay = parseInt(_amount / amountRental);
-            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + _monthsToPay + (_amount>monthdeficit?1:0)));
+            var _butal = _amount % amountRental;
+            console.log('butal: ' + _butal);
+            coverage_end = new Date(new Date(coverage_start).setMonth(coverage_start.getMonth() + (monthdeficit>0?1:0) + _monthsToPay + ((_butal>monthdeficit)?1:0)) - 86400000);
             document.getElementById('pcDates').innerHTML = coverage_start.toLocaleString('en-US', options) + " to " + coverage_end.toLocaleString('en-US', options);
             document.getElementById('txtdatecoverageend').value = coverage_end.toISOString().split('T')[0];
         }
