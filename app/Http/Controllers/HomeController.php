@@ -6,6 +6,7 @@ use App\Models\Contract;
 use App\Models\Payment;
 use App\Models\Property;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,10 +91,25 @@ class HomeController extends Controller
         $start_date = date_create($year."-".$month."-01");
         $end_date = date_create(date('Y-m-d', strtotime("-1 day", strtotime("+1 month", strtotime(date_format($start_date,"Y-m-d"))))));
         $properties = Property::all(); // implement by landlord soon
+        $payments = Payment::where('date_payment','<=',date_format($end_date, "Y-m-d"))->where('date_payment','>=',date_format($start_date, "Y-m-d"))->orderBy('date_payment','DESC')->get();
+        $tenants = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Tenant');
+        }, 1)->get();
+        $tenantsWithArrears = new Collection();
+        foreach($tenants as $i => $t) {
+            $contractCount = $t->contracts->where('date_start','<=',date_format($start_date, "Y-m-d"))->count();
+            if($contractCount < 1)
+                continue;
+            if($t->getBalanceRawUntil(date_format($end_date, "Y-m-d")) > 0) {
+                $tenantsWithArrears->push($t);
+            }
+        }
         return view('pages.home.report')
             ->with('start_date', $start_date)
             ->with('end_date', $end_date)
-            ->with('properties', $properties);
+            ->with('properties', $properties)
+            ->with('payments', $payments)
+            ->with('tenants', $tenantsWithArrears);
     }
 
     private function getPastMonths($months) {

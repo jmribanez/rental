@@ -126,4 +126,13 @@ class User extends Authenticatable
         }
         return $balance;
     }
+
+    public function getBalanceRawUntil($end_date) {
+        $balance = 0;
+        $contracts = $this->contracts;
+        foreach($contracts as $c) {
+            $balance += $c->getBalanceRawUntil($end_date);
+        }
+        return $balance;
+    }
 }

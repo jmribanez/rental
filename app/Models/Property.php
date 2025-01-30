@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class Property extends Model
 {
@@ -52,13 +53,13 @@ class Property extends Model
     }
 
     public function getPayments() {
-        $payments = array();
+        $payments = new Collection();
         foreach($this->contracts as $c) {
             foreach($c->payments as $p) {
-                array_push($payments, $p);
+                $payments->push($p);
             }
         }
-        return $payments;
+        return $payments->sortByDesc('date_payment');
     }
 
     public function getSumPaymentsForDate($start_date, $end_date) {

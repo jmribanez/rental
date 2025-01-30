@@ -59,6 +59,13 @@ class Contract extends Model
         return $balance;
     }
 
+    public function getBalanceRawUntil($end_date) {
+        $date_end = min(date_create($this->date_end), date_create($end_date));
+        $months_passed = date_diff(date_create($this->date_start), $date_end);
+        $balance = ($this->amount_rental * ((int)$months_passed->format("%m")+1)) - $this->payments->where('date_payment','<=',date_format($date_end, "Y-m-d"))->sum("amount");
+        return $balance;
+    }
+
     public function getMonthsDue() {
         $date_end = min(date_create($this->date_end), date_create(date("Y-m-d")));
         $months_passed = date_diff(date_create($this->date_start), $date_end);
